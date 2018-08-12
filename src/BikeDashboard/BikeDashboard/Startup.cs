@@ -13,8 +13,8 @@ namespace BikeDashboard
         {
 			var builder = new ConfigurationBuilder()
 				.SetBasePath(env.ContentRootPath)
-				.AddEnvironmentVariables()
-				.AddJsonFile("appsettings.json");
+				.AddJsonFile("appsettings.json")
+				.AddEnvironmentVariables();
 
 			Configuration = builder.Build();
         }
