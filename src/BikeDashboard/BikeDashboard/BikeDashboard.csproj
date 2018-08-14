@@ -20,12 +20,4 @@
   <ItemGroup>
     <Compile Remove="Models\GbfsStation.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Remove="wwwroot\images\bicycle-solid.svg" />
-    <Content Remove="wwwroot\images\unlock-alt-solid.svg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="wwwroot\images\bicycle-solid.svg" />
-    <None Include="wwwroot\images\unlock-alt-solid.svg" />
-  </ItemGroup>
 </Project>
