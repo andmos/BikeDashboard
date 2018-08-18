@@ -49,6 +49,9 @@ namespace BikeDashboard
             
             app.UseMvc(routes =>
             {
+			routes.MapRoute(
+				name: "api",
+				template: "api/{controller=FavoriteStation}");
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");

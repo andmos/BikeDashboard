@@ -16,6 +16,7 @@
     <Folder Include="Models\" />
     <Folder Include="Services\" />
     <Folder Include="wwwroot\images\" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Models\GbfsStation.cs" />
