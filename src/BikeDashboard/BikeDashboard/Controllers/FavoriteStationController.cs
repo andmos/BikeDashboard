@@ -16,9 +16,13 @@ namespace BikeDashboard.Controllers
 		}
         
         [HttpGet]
-		public async Task<FavoriteStation> GetAsync()
+		public async Task<FavoriteStation> GetAsync([FromQuery(Name = "stationName")] string stationName)
         {
-			return await _stationService.GetFavoriteStation();
+			if(string.IsNullOrWhiteSpace(stationName))
+			{
+				return await _stationService.GetFavoriteStation();	
+			}
+			return await _stationService.GetFavoriteStation(stationName);
         }
         
     }

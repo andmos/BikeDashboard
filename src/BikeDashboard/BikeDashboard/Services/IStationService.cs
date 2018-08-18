@@ -7,5 +7,6 @@ namespace BikeDashboard.Services
 	public interface IStationService
     {
 		Task<FavoriteStation> GetFavoriteStation();
+		Task<FavoriteStation> GetFavoriteStation(string stationName);
     }
 }

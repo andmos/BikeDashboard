@@ -10,21 +10,25 @@ namespace BikeDashboard.Services
 		private readonly string _stationName;
 		private readonly IBikeshareClient _bikeShareClient; 
 
-		public StationService(IBikeshareClient bikeshareClient, string stationName)
+		public StationService(IBikeshareClient bikeshareClient, string defaultStationName)
         {
 			_bikeShareClient = bikeshareClient;
-			_stationName = stationName; 
+			_stationName = defaultStationName; 
 		}
 
 		public async Task<FavoriteStation> GetFavoriteStation()
 		{
-			var stations = await _bikeShareClient.GetStationsAsync();
-			var stationId = stations.First(s => s.Name.Equals(_stationName)).Id;
-			var stationsStatuses = await _bikeShareClient.GetStationsStatusAsync();
-			var stationStatus = stationsStatuses.First(s => s.Id.Equals(stationId));
+			return await GetFavoriteStation(_stationName);   
+		}
 
-			return new FavoriteStation(_stationName, stationStatus.BikesAvailable, stationStatus.DocksAvailable);
-            
+		public async Task<FavoriteStation> GetFavoriteStation(string stationName)
+		{
+			var stations = await _bikeShareClient.GetStationsAsync();
+			var stationId = stations.First(s => s.Name.Equals(stationName)).Id;
+            var stationsStatuses = await _bikeShareClient.GetStationsStatusAsync();
+            var stationStatus = stationsStatuses.First(s => s.Id.Equals(stationId));
+
+			return new FavoriteStation(stationName, stationStatus.BikesAvailable, stationStatus.DocksAvailable); 	
 		}
 	}
 }
