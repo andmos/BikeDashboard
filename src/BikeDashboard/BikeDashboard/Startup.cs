@@ -26,7 +26,9 @@ namespace BikeDashboard
             services.AddOptions();
 
 			var bikeClient = new Client(Configuration.GetValue<string>("GBFSAddress"));
+			var weatherService = new WeatherService(Configuration.GetValue<string>("WeatherServiceAPIKey"));
 			services.AddSingleton<IBikeshareClient>(bikeClient);
+			services.AddSingleton<IWeatherService>(weatherService);
 			services.AddSingleton<IStationService>(new StationService(bikeClient, Configuration.GetValue<string>("StationName")));
         }
 
