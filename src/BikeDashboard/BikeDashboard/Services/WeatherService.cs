@@ -9,6 +9,8 @@ namespace BikeDashboard.Services
     {
 		private readonly string _weatherServiceAPIKey;
 		private readonly string _apiBaseAddress = "https://api.openweathermap.org/data/2.5/forecast";
+		private readonly string _tempUnit = "metric";
+		private readonly int _numberOfForecastRecords = 4; // 3 hours between forecasts
         
 		public WeatherService(string weatherServiceAPIKey)
         {
@@ -23,7 +25,12 @@ namespace BikeDashboard.Services
 		{
 			using(var client = new HttpClient())
 			{
-				var response = await client.GetAsync($"{_apiBaseAddress}?lat={coordinates.Latitude}&lon={coordinates.Longitude}&APPID={_weatherServiceAPIKey}");
+				var response = await client.GetAsync($"{_apiBaseAddress}?" +
+				                                     "lat={coordinates.Latitude}" +
+				                                     "&lon={coordinates.Longitude}" +
+				                                     "&APPID={_weatherServiceAPIKey}" +
+				                                     "&units={_tempUnit}" +
+				                                     "&cnt={_numberOfForecastRecords}");
 				if (!response.IsSuccessStatusCode)
                 {
 					throw new NotImplementedException($"Could not find any weather data, {_apiBaseAddress} returned status code {response.StatusCode}");

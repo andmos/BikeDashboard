@@ -11,9 +11,10 @@ namespace BikeDashboard.Pages
 {
     public class IndexModel : PageModel
     {
-		private readonly IStationService _stationService; 
+		private readonly IStationService _stationService;
+		private readonly IWeatherService _weatherService;
 
-		public IndexModel(IStationService stationService)
+		public IndexModel(IStationService stationService, IWeatherService weatherService)
 		{
 			_stationService = stationService; 
 		}
