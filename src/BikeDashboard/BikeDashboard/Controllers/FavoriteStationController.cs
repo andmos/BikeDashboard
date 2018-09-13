@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using BikeDashboard.DTO;
 using BikeDashboard.Models;
 using BikeDashboard.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -28,7 +29,7 @@ namespace BikeDashboard.Controllers
         //}
 
 		[HttpGet]
-		public async Task<string> GetAsync([FromQuery(Name = "stationName")] string stationName, [FromQuery(Name = "weather")] string weather)
+		public async Task<WeatherForecastReport> GetAsync([FromQuery(Name = "stationName")] string stationName, [FromQuery(Name = "weather")] string weather)
 		{
 			if(bool.Parse(weather))
 			{
@@ -41,7 +42,7 @@ namespace BikeDashboard.Controllers
                 coordinates = await _stationService.GetFavoriteStationCoordinates(stationName);
 				return await _weatherService.GetDailyForeCastAsync(coordinates);
 			}
-			return "No Weather";
+			return new WeatherForecastReport(new WeatherForecast[]{});
 
 		}
         

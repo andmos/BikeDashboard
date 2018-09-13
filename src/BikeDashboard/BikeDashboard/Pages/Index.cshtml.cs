@@ -16,15 +16,21 @@ namespace BikeDashboard.Pages
 
 		public IndexModel(IStationService stationService, IWeatherService weatherService)
 		{
-			_stationService = stationService; 
+			_stationService = stationService;
+			_weatherService = weatherService;
 		}
 
 		[BindProperty]
 		public FavoriteStation FavoriteStation { get; set; }
+
+		[BindProperty]
+		public IEnumerable<WeatherForecast> WeatherForecast { get; set; }
       
 		public async Task OnGetAsync()
         {
-			FavoriteStation = await _stationService.GetFavoriteStation(); 
+			FavoriteStation = await _stationService.GetFavoriteStation();
+			var weatherForecastReport = await _weatherService.GetDailyForeCastAsync(await _stationService.GetFavoriteStationCoordinates());
+			WeatherForecast = weatherForecastReport.Forecasts;
         }
     }
 }

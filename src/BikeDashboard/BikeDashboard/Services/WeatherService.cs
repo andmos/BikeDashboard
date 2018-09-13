@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using BikeDashboard.DTO;
 using BikeDashboard.Models;
+using Newtonsoft.Json;
+using System.Linq;
 
 namespace BikeDashboard.Services
 {
@@ -21,23 +25,45 @@ namespace BikeDashboard.Services
 			_weatherServiceAPIKey = weatherServiceAPIKey;
 		}
 
-		public async Task<string> GetDailyForeCastAsync(StationCoordinates coordinates)
+		public async Task<WeatherForecastReport> GetDailyForeCastAsync(StationCoordinates coordinates)
 		{
 			using(var client = new HttpClient())
 			{
 				var response = await client.GetAsync($"{_apiBaseAddress}?" +
-				                                     "lat={coordinates.Latitude}" +
-				                                     "&lon={coordinates.Longitude}" +
-				                                     "&APPID={_weatherServiceAPIKey}" +
-				                                     "&units={_tempUnit}" +
-				                                     "&cnt={_numberOfForecastRecords}");
+				                                     $"lat={coordinates.Latitude}" +
+				                                     $"&lon={coordinates.Longitude}" +
+				                                     $"&APPID={_weatherServiceAPIKey}" +
+				                                     $"&units={_tempUnit}" +
+				                                     $"&cnt={_numberOfForecastRecords}");
 				if (!response.IsSuccessStatusCode)
                 {
 					throw new NotImplementedException($"Could not find any weather data, {_apiBaseAddress} returned status code {response.StatusCode}");
                 }
 				var content = await response.Content.ReadAsStringAsync();
-				return content; 
+                
+				return CreateWeatherForecastReport(JsonConvert.DeserializeObject<WeatherReportDTO>(content));
 			}
+		}
+        
+		private WeatherForecastReport CreateWeatherForecastReport(WeatherReportDTO weatherReportDto)
+		{
+			var forecasts = new List<WeatherForecast>(); 
+
+			foreach(var forecastDto in weatherReportDto.list)
+			{
+				var rain = new Models.Rain(forecastDto.rain.Rainfall);
+				var temperature = new Temperature(forecastDto.main.temp_min, forecastDto.main.temp_max, forecastDto.main.humidity);
+				var wind = new Models.Wind(forecastDto.wind.speed);
+				var forecast = new WeatherForecast(rain, 
+				                                   temperature, 
+				                                   wind, 
+				                                   forecastDto.weather.FirstOrDefault().description, 
+				                                   forecastDto.weather.FirstOrDefault().main,
+				                                   forecastDto.RecordTime);
+				forecasts.Add(forecast);
+			}
+
+			return new WeatherForecastReport(forecasts);
 		}
     }
 }
