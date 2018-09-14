@@ -7,8 +7,8 @@ namespace BikeDashboard.Models
 		public Temperature Temperature { get; }
 		public Wind Wind { get; }
 		public String Description { get; }
-		public String WeatherGroup { get; set; }
-		public DateTime ForecastTime { get; set; }
+		public String WeatherGroup { get; }
+		public DateTime ForecastTime { get; }
 
 		public WeatherForecast(Rain rain, Temperature temperature, Wind wind, String description, string weatherGroup, DateTime forecastTime)
         {
