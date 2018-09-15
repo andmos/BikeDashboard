@@ -18,12 +18,10 @@ namespace BikeDashboard.Services
         
 		public WeatherService(string weatherServiceAPIKey)
         {
-			if(string.IsNullOrEmpty(weatherServiceAPIKey))
-			{
-				throw new ArgumentNullException("weatherServiceAPIKey must be set to call openweathermap services");
-			}
 			_weatherServiceAPIKey = weatherServiceAPIKey;
 		}
+
+		public bool FeatureEnabled => !String.IsNullOrWhiteSpace(_weatherServiceAPIKey);
 
 		public async Task<WeatherForecastReport> GetDailyForeCastAsync(StationCoordinates coordinates)
 		{
@@ -44,14 +42,16 @@ namespace BikeDashboard.Services
 				return CreateWeatherForecastReport(JsonConvert.DeserializeObject<WeatherReportDTO>(content));
 			}
 		}
-        
+
+
+
 		private WeatherForecastReport CreateWeatherForecastReport(WeatherReportDTO weatherReportDto)
 		{
 			var forecasts = new List<WeatherForecast>(); 
 
 			foreach(var forecastDto in weatherReportDto.list)
 			{
-				var rain = new Models.Rain(forecastDto.rain.Rainfall);
+				var rain = new Models.Rain(forecastDto.rain?.Rainfall ?? 0);
 				var temperature = new Temperature(forecastDto.main.temp_min, forecastDto.main.temp_max, forecastDto.main.humidity);
 				var wind = new Models.Wind(forecastDto.wind.speed);
 				var forecast = new WeatherForecast(rain, 

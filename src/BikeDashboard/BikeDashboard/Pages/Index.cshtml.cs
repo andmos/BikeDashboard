@@ -10,8 +10,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BikeDashboard.Pages
 {
-    public class IndexModel : PageModel
-    {
+	public class IndexModel : PageModel
+	{
 		private readonly IStationService _stationService;
 		private readonly IWeatherService _weatherService;
 
@@ -19,7 +19,11 @@ namespace BikeDashboard.Pages
 		{
 			_stationService = stationService;
 			_weatherService = weatherService;
+			WeatherServiceEnables = _weatherService.FeatureEnabled;
 		}
+
+		[BindProperty]
+		public bool WeatherServiceEnables {get; set; }
 
 		[BindProperty]
 		public FavoriteStation FavoriteStation { get; set; }
@@ -30,8 +34,12 @@ namespace BikeDashboard.Pages
 		public async Task OnGetAsync()
         {
 			FavoriteStation = await _stationService.GetFavoriteStation();
-			var weatherForecastReport = await _weatherService.GetDailyForeCastAsync(await _stationService.GetFavoriteStationCoordinates());
-			WeatherForecastViewModels = GetForecastViewModels(weatherForecastReport.Forecasts);
+			if(WeatherServiceEnables)
+			{
+				var weatherForecastReport = await _weatherService.GetDailyForeCastAsync(await _stationService.GetFavoriteStationCoordinates());
+                WeatherForecastViewModels = GetForecastViewModels(weatherForecastReport.Forecasts);	
+			}
+
         }
 
 		private IEnumerable<WeatherForecastViewModel> GetForecastViewModels(IEnumerable<WeatherForecast> forecasts)

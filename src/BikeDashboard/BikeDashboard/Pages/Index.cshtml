@@ -10,13 +10,15 @@
                 <img src="~/images/bicycle-solid.svg" style="width:100px;height:200px;" /> @Model.FavoriteStation.AvailableBikes / <img src="~/images/unlock-alt-solid.svg" style="width:50px;height:100px;" /> @Model.FavoriteStation.AvailableLocks
             </h1>
             <br />
-
-            @foreach (var forecast in Model.WeatherForecastViewModels)
+            @if (Model.WeatherServiceEnables)
             {
+                @foreach (var forecast in Model.WeatherForecastViewModels)
+                {
                 <br />
                 <div>
                     @forecast.ForecastStartTime - @forecast.ForecastEndTime <img src="~/images/thermometer-half.svg" style="width: 20px; height: 20px;" /> @forecast.Temperature.Min &deg;C / @forecast.Temperature.Max &deg;C <img src="~/images/tint.svg" style="width: 20px; height: 20px;" />  @forecast.Rain.Rainfall mm @forecast.Wind.Speed &#13223;
                 </div>
+                }
             }
         </center>            
       </body>

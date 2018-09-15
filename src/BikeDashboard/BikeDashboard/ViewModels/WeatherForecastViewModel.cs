@@ -11,12 +11,17 @@ namespace BikeDashboard.ViewModels
 		public String ForecastStartTime { get; } 
 		public String ForecastEndTime { get; }
 		private String _weatherGroup;
+		private const int _decimalAccuracy = 1; 
 
 		public WeatherForecastViewModel(WeatherForecast forecast, DateTime nextForcastDate)
         {
-			Rain = forecast.Rain;
-			Temperature = forecast.Temperature;
-			Wind = forecast.Wind;
+			Rain = new Rain(Math.Round(forecast.Rain.Rainfall, _decimalAccuracy));
+			Temperature = new Temperature(
+				Math.Round(forecast.Temperature.Min, _decimalAccuracy), 
+				Math.Round(forecast.Temperature.Max, _decimalAccuracy), 
+				forecast.Temperature.Humidity);
+
+			Wind = new Wind(Math.Round(forecast.Wind.Speed,_decimalAccuracy));
 			Description = forecast.Description;
 			ForecastStartTime = forecast.ForecastTime.ToLocalTime().ToShortTimeString();
 			_weatherGroup = forecast.WeatherGroup;

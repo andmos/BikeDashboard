@@ -39,7 +39,7 @@ namespace BikeDashboard.DTO
     public class Rain
     {
 		[JsonProperty("3h")]
-		public double Rainfall { get; set; }
+		public double? Rainfall { get; set; }
     }
 
     public class Sys
