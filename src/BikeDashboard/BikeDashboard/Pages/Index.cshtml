@@ -16,7 +16,7 @@
                 @foreach (var forecast in Model.WeatherForecastViewModels)
                 {
                     <br />
-                    <div>
+                    <div title="@forecast.Description">
                         @forecast.ForecastStartTime - @forecast.ForecastEndTime <img src="~/images/thermometer-half.svg" style="width: 20px; height: 20px;" /> @forecast.Temperature.Min &deg;C / @forecast.Temperature.Max &deg;C <img src="~/images/tint.svg" style="width: 20px; height: 20px;" />  @forecast.Rain.Rainfall mm @forecast.Wind.Speed &#13223;
                     </div>
                  }
