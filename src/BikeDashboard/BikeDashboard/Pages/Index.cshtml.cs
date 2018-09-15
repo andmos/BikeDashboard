@@ -28,18 +28,17 @@ namespace BikeDashboard.Pages
 		[BindProperty]
 		public FavoriteStation FavoriteStation { get; set; }
         
-		[BindProperty]
 		public IEnumerable<WeatherForecastViewModel> WeatherForecastViewModels { get; set; }
       
 		public async Task OnGetAsync()
         {
 			FavoriteStation = await _stationService.GetFavoriteStation();
+
 			if(WeatherServiceEnables)
 			{
 				var weatherForecastReport = await _weatherService.GetDailyForeCastAsync(await _stationService.GetFavoriteStationCoordinates());
                 WeatherForecastViewModels = GetForecastViewModels(weatherForecastReport.Forecasts);	
 			}
-
         }
 
 		private IEnumerable<WeatherForecastViewModel> GetForecastViewModels(IEnumerable<WeatherForecast> forecasts)

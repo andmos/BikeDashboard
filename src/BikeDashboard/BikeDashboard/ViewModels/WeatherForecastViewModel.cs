@@ -11,6 +11,7 @@ namespace BikeDashboard.ViewModels
 		public String ForecastStartTime { get; } 
 		public String ForecastEndTime { get; }
 		private String _weatherGroup;
+
 		private const int _decimalAccuracy = 1; 
 
 		public WeatherForecastViewModel(WeatherForecast forecast, DateTime nextForcastDate)
