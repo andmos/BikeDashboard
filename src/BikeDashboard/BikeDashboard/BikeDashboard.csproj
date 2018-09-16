@@ -23,12 +23,4 @@
   <ItemGroup>
     <Compile Remove="Models\GbfsStation.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Remove="wwwroot\images\thermometer-half.svg" />
-    <Content Remove="wwwroot\images\tint.svg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="wwwroot\images\thermometer-half.svg" />
-    <None Include="wwwroot\images\tint.svg" />
-  </ItemGroup>
 </Project>
