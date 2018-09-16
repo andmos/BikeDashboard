@@ -8,5 +8,7 @@ namespace BikeDashboard.Services
     {
 		Task<FavoriteStation> GetFavoriteStation();
 		Task<FavoriteStation> GetFavoriteStation(string stationName);
+		Task<StationCoordinates> GetFavoriteStationCoordinates();
+		Task<StationCoordinates> GetFavoriteStationCoordinates(string stationName);
     }
 }

@@ -30,5 +30,17 @@ namespace BikeDashboard.Services
 
 			return new FavoriteStation(stationName, stationStatus.BikesAvailable, stationStatus.DocksAvailable); 	
 		}
+
+		public async Task<StationCoordinates> GetFavoriteStationCoordinates()
+		{
+			return await GetFavoriteStationCoordinates(_stationName);
+		}
+
+		public async Task<StationCoordinates> GetFavoriteStationCoordinates(string stationName)
+		{
+			var stations = await _bikeShareClient.GetStationsAsync(); 
+			var station = stations.First(s => s.Name.Equals(stationName));
+			return new StationCoordinates{ Latitude = station.Latitude, Longitude = station.Longitude};
+		}
 	}
 }

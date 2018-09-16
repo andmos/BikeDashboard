@@ -4,11 +4,23 @@
     ViewData["Title"] = "Station Status";
     <body>
         <center>
-        <h1>
-            @Model.FavoriteStation.Name
+            <h1>
+                @Model.FavoriteStation.Name
+                <br />
+                <img src="~/images/bicycle-solid.svg" style="width:100px;height:200px;" /> @Model.FavoriteStation.AvailableBikes / <img src="~/images/unlock-alt-solid.svg" style="width:50px;height:100px;" /> @Model.FavoriteStation.AvailableLocks
+            </h1>
             <br />
-            <img src="~/images/bicycle-solid.svg" style="width:100px;height:200px;" /> @Model.FavoriteStation.AvailableBikes / <img src="~/images/unlock-alt-solid.svg" style="width:50px;height:100px;" /> @Model.FavoriteStation.AvailableLocks
-        </h1>
+
+            @if (Model.WeatherServiceEnables)
+            {
+                @foreach (var forecast in Model.WeatherForecastViewModels)
+                {
+                    <br />
+                    <div title="@forecast.Description">
+                       <img src="~/images/clock.svg" style="width: 20px; height: 20px;" /> @forecast.ForecastStartTime - @forecast.ForecastEndTime <img src="~/images/thermometer-half.svg" style="width: 20px; height: 20px;" /> @forecast.Temperature.Min &deg;C / @forecast.Temperature.Max &deg;C <img src="~/images/tint.svg" style="width: 20px; height: 20px;" />  @forecast.Rain.Rainfall mm <img src="~/images/strong-wind.svg" style="width: 40px; height: 40px;" /> @forecast.Wind.Speed &#13223;
+                    </div>
+                 }
+            }
         </center>            
       </body>
 }

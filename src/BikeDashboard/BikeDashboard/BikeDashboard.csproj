@@ -17,6 +17,8 @@
     <Folder Include="Services\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="Controllers\" />
+    <Folder Include="DTO\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Models\GbfsStation.cs" />
