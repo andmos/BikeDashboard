@@ -11,7 +11,7 @@ docker run -it -p 5000:5000 -e GBFSAddress="http://gbfs.urbansharing.com/trondhe
 Local weather services from [OpenWeatherMaps](https://openweathermap.org) can be added to the BikeDashboard by providing an API-key:
 
 ```bash
-docker run -it -p 5000:5000 -e GBFSAddress="http://gbfs.urbansharing.com/trondheim/" -e StationName="Skansen" -e WeatherServiceAPIKey="" andmos/bikedashboard
+docker run -it -p 5000:5000 -e GBFSAddress="http://gbfs.urbansharing.com/trondheim/" -e StationName="Skansen" -e WeatherServiceAPIKey=" andmos/bikedashboard
 ```
 
 [![Docker Build
