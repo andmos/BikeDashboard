@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BikeDashboard.Models;
@@ -24,11 +25,13 @@ namespace BikeDashboard.Services
 		public async Task<FavoriteStation> GetFavoriteStation(string stationName)
 		{
 			var stations = await _bikeShareClient.GetStationsAsync();
-			var stationId = stations.First(s => s.Name.Equals(stationName)).Id;
+			var stationIdentifier = new KeyValuePair<string, string>(
+				stations.First(s => s.Name.ToLower().Equals(stationName.ToLower())).Id,
+				stations.First(s => s.Name.ToLower().Equals(stationName.ToLower())).Name);
             var stationsStatuses = await _bikeShareClient.GetStationsStatusAsync();
-            var stationStatus = stationsStatuses.First(s => s.Id.Equals(stationId));
+			var stationStatus = stationsStatuses.First(s => s.Id.Equals(stationIdentifier.Key));
 
-			return new FavoriteStation(stationName, stationStatus.BikesAvailable, stationStatus.DocksAvailable); 	
+			return new FavoriteStation(stationIdentifier.Value, stationStatus.BikesAvailable, stationStatus.DocksAvailable); 	
 		}
 
 		public async Task<StationCoordinates> GetFavoriteStationCoordinates()
