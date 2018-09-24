@@ -32,7 +32,16 @@ namespace BikeDashboard.Pages
       
 		public async Task OnGetAsync()
         {
-			FavoriteStation = await _stationService.GetFavoriteStation();
+			var stationQueryString = HttpContext.Request.Query["stationName"].ToString();
+			if(string.IsNullOrEmpty(stationQueryString))
+			{
+				FavoriteStation = await _stationService.GetFavoriteStation();	
+			}
+			else
+			{
+				FavoriteStation = await _stationService.GetFavoriteStation(stationQueryString);
+			}
+
 
 			if(WeatherServiceEnables)
 			{
