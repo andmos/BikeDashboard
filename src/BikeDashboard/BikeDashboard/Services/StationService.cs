@@ -51,7 +51,7 @@ namespace BikeDashboard.Services
 		public async Task<StationCoordinates> GetFavoriteStationCoordinates(string stationName)
 		{
 			var stations = await _bikeShareClient.GetStationsAsync(); 
-			var station = stations.First(s => s.Name.Equals(stationName));
+			var station = stations.First(s => s.Name.ToLower().Equals(stationName.ToLower()));
 			return new StationCoordinates{ Latitude = station.Latitude, Longitude = station.Longitude};
 		}
         

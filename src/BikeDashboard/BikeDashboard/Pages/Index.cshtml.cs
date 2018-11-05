@@ -45,7 +45,16 @@ namespace BikeDashboard.Pages
 
 			if(WeatherServiceEnables)
 			{
-				var weatherForecastReport = await _weatherService.GetDailyForeCastAsync(await _stationService.GetFavoriteStationCoordinates());
+				WeatherForecastReport weatherForecastReport;
+				if (string.IsNullOrEmpty(stationQueryString))
+				{
+					weatherForecastReport = await _weatherService.GetDailyForeCastAsync(await _stationService.GetFavoriteStationCoordinates());
+				}
+				else
+				{
+					weatherForecastReport = await _weatherService.GetDailyForeCastAsync(await _stationService.GetFavoriteStationCoordinates(stationQueryString));
+				}
+
                 WeatherForecastViewModels = GetForecastViewModels(weatherForecastReport.Forecasts);	
 			}
         }
