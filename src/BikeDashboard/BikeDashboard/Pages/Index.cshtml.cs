@@ -27,11 +27,15 @@ namespace BikeDashboard.Pages
 
 		[BindProperty]
 		public FavoriteStation FavoriteStation { get; set; }
+
+        [BindProperty]
+        public string InfoText { get; set; }
         
 		public IEnumerable<WeatherForecastViewModel> WeatherForecastViewModels { get; set; }
       
 		public async Task OnGetAsync()
         {
+            InfoText = string.Empty;
 			var stationQueryString = HttpContext.Request.Query["stationName"].ToString();
 			if(string.IsNullOrEmpty(stationQueryString))
 			{
@@ -41,6 +45,12 @@ namespace BikeDashboard.Pages
 			{
 				FavoriteStation = await _stationService.GetFavoriteStation(stationQueryString);
 			}
+
+            if (FavoriteStation.AvailableBikes == 0)
+            {
+                InfoText = $"{FavoriteStation.Name} had no available bikes. Showing closest bikestation."; 
+                FavoriteStation = await _stationService.GetClosestAvailableStation(FavoriteStation);
+            }
 
 
 			if(WeatherServiceEnables)

@@ -19,6 +19,7 @@
     <Folder Include="Controllers\" />
     <Folder Include="DTO\" />
     <Folder Include="ViewModels\" />
+    <Folder Include="GeoLocation\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Models\GbfsStation.cs" />
