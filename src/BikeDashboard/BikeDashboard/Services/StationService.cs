@@ -59,5 +59,20 @@ namespace BikeDashboard.Services
         {
             return await _bikeShareClient.GetStationsAsync();
         }
-	}
+
+        public async Task<FavoriteStation> GetClosestAvailableStation(FavoriteStation baseStation)
+        {
+            var baseStationCoordinates = await GetFavoriteStationCoordinates(baseStation.Name);
+            var stationsStatuses = await _bikeShareClient.GetStationsStatusAsync();
+            var emptyStations = new HashSet<string>(stationsStatuses.Where(s => s.BikesAvailable == 0).Select(n => n.Id));
+            var stations = await GetAllAvailableStations();
+            var stationList = stations.ToList();
+            stationList.RemoveAll(s => emptyStations.Contains(s.Id));
+
+            var closestToBaseStation = stationList.OrderBy(s => (GeoLocation.GeoCalculator.GetDistance(baseStationCoordinates.Latitude, baseStationCoordinates.Longitude, s.Latitude, s.Longitude, 2, GeoLocation.DistanceUnit.Meters))).First();
+            return await GetFavoriteStation(closestToBaseStation.Name);
+
+        }
+
+    }
 }
