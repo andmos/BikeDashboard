@@ -52,19 +52,10 @@ namespace BikeDashboard.Pages
                 FavoriteStation = await _stationService.GetClosestAvailableStation(FavoriteStation);
             }
 
-
 			if(WeatherServiceEnables)
 			{
 				WeatherForecastReport weatherForecastReport;
-				if (string.IsNullOrEmpty(stationQueryString))
-				{
-					weatherForecastReport = await _weatherService.GetDailyForeCastAsync(await _stationService.GetFavoriteStationCoordinates());
-				}
-				else
-				{
-					weatherForecastReport = await _weatherService.GetDailyForeCastAsync(await _stationService.GetFavoriteStationCoordinates(stationQueryString));
-				}
-
+                weatherForecastReport = await _weatherService.GetDailyForeCastAsync(FavoriteStation.StationCoordinates);
                 WeatherForecastViewModels = GetForecastViewModels(weatherForecastReport.Forecasts);	
 			}
         }

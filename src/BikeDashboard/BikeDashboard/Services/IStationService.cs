@@ -20,17 +20,6 @@ namespace BikeDashboard.Services
         /// <param name="stationName">Station name.</param>
 		Task<FavoriteStation> GetFavoriteStation(string stationName);
         /// <summary>
-        /// Gets the favorite station coordinates.
-        /// </summary>
-        /// <returns>The favorite station coordinates.</returns>
-		Task<StationCoordinates> GetFavoriteStationCoordinates();
-        /// <summary>
-        /// Gets the favorite station coordinates.
-        /// </summary>
-        /// <returns>The favorite station coordinates.</returns>
-        /// <param name="stationName">Station name.</param>
-		Task<StationCoordinates> GetFavoriteStationCoordinates(string stationName);
-        /// <summary>
         /// Gets all available stations.
         /// </summary>
         /// <returns>The all available stations.</returns>

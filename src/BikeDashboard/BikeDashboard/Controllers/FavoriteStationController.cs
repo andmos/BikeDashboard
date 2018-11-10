@@ -36,7 +36,7 @@ namespace BikeDashboard.Controllers
 
 			if (_weatherService.FeatureEnabled)
 			{
-				weatherForecast = await _weatherService.GetDailyForeCastAsync(await _stationService.GetFavoriteStationCoordinates());
+                weatherForecast = await _weatherService.GetDailyForeCastAsync(station.StationCoordinates);
 	        }
 			else
 			{
