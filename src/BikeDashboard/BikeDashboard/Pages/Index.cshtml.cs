@@ -19,11 +19,11 @@ namespace BikeDashboard.Pages
 		{
 			_stationService = stationService;
 			_weatherService = weatherService;
-			WeatherServiceEnables = _weatherService.FeatureEnabled;
+			WeatherServiceEnabled = _weatherService.FeatureEnabled;
 		}
 
 		[BindProperty]
-		public bool WeatherServiceEnables {get; set; }
+		public bool WeatherServiceEnabled {get; set; }
 
 		[BindProperty]
 		public FavoriteStation FavoriteStation { get; set; }
@@ -52,11 +52,19 @@ namespace BikeDashboard.Pages
                 FavoriteStation = await _stationService.GetClosestAvailableStation(FavoriteStation);
             }
 
-			if(WeatherServiceEnables)
+			if(WeatherServiceEnabled)
 			{
 				WeatherForecastReport weatherForecastReport;
-                weatherForecastReport = await _weatherService.GetDailyForeCastAsync(FavoriteStation.StationCoordinates);
-                WeatherForecastViewModels = GetForecastViewModels(weatherForecastReport.Forecasts);	
+                try
+                {
+                    weatherForecastReport = await _weatherService.GetDailyForeCastAsync(FavoriteStation.StationCoordinates);
+                    WeatherForecastViewModels = GetForecastViewModels(weatherForecastReport.Forecasts);
+                }
+                catch(NotImplementedException exception)
+                {
+                    WeatherServiceEnabled = false;
+                }
+
 			}
         }
 
