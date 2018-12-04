@@ -7,25 +7,25 @@ using BikeshareClient;
 using BikeshareClient.Models;
 namespace BikeDashboard.Services
 {
-	public class StationService : IStationService
+    public class StationService : IStationService
     {
-		private readonly string _stationName;
-		private readonly IBikeshareClient _bikeShareClient; 
+        private readonly string _stationName;
+        private readonly IBikeshareClient _bikeShareClient;
 
-		public StationService(IBikeshareClient bikeshareClient, string defaultStationName)
+        public StationService(IBikeshareClient bikeshareClient, string defaultStationName)
         {
-			_bikeShareClient = bikeshareClient;
-			_stationName = defaultStationName; 
-		}
+            _bikeShareClient = bikeshareClient;
+            _stationName = defaultStationName;
+        }
 
-		public async Task<FavoriteStation> GetFavoriteStation()
-		{
-			return await GetFavoriteStation(_stationName);   
-		}
+        public async Task<FavoriteStation> GetFavoriteStation()
+        {
+            return await GetFavoriteStation(_stationName);
+        }
 
-		public async Task<FavoriteStation> GetFavoriteStation(string stationName)
-		{
-			var stations = await _bikeShareClient.GetStationsAsync();
+        public async Task<FavoriteStation> GetFavoriteStation(string stationName)
+        {
+            var stations = await _bikeShareClient.GetStationsAsync();
             var stationIdentifier = new KeyValuePair<string, string>();
             StationCoordinates stationCoordinates;
             try
@@ -39,15 +39,15 @@ namespace BikeDashboard.Services
                     Longitude = stations.First(s => s.Name.ToLower().Equals(stationName.ToLower())).Longitude
                 };
             }
-            catch(InvalidOperationException noElementException)
+            catch (InvalidOperationException noElementException)
             {
                 return await GetFavoriteStation(_stationName);
             }
             var stationsStatuses = await _bikeShareClient.GetStationsStatusAsync();
-			var stationStatus = stationsStatuses.First(s => s.Id.Equals(stationIdentifier.Key));
+            var stationStatus = stationsStatuses.First(s => s.Id.Equals(stationIdentifier.Key));
 
-			return new FavoriteStation(stationIdentifier.Value, stationStatus.BikesAvailable, stationStatus.DocksAvailable, stationCoordinates); 	
-		}
+            return new FavoriteStation(stationIdentifier.Value, stationStatus.BikesAvailable, stationStatus.DocksAvailable, stationCoordinates);
+        }
 
         public async Task<IEnumerable<Station>> GetAllAvailableStations()
         {
@@ -57,13 +57,18 @@ namespace BikeDashboard.Services
         public async Task<FavoriteStation> GetClosestAvailableStation(FavoriteStation baseStation)
         {
             var baseStationCoordinates = baseStation.StationCoordinates;
-            var stationList = await FilterEmptyStations();
+            var stationList = await RemoveEmptyStations();
+            if (!stationList.Any())
+            {
+                return new FavoriteStation("No Available Bikes found from bikeshare provider.", 0, 0, baseStationCoordinates);
+            }
+
             var closestToBaseStation = stationList.OrderBy(s => (GeoLocation.GeoCalculator.GetDistance(baseStationCoordinates.Latitude, baseStationCoordinates.Longitude, s.Latitude, s.Longitude, 2, GeoLocation.DistanceUnit.Meters))).First();
             return await GetFavoriteStation(closestToBaseStation.Name);
 
         }
 
-        private async Task<IEnumerable<Station>> FilterEmptyStations()
+        private async Task<IEnumerable<Station>> RemoveEmptyStations()
         {
             var stationsStatuses = await _bikeShareClient.GetStationsStatusAsync();
             var emptyStations = new HashSet<string>(stationsStatuses.Where(s => s.BikesAvailable == 0).Select(n => n.Id));
