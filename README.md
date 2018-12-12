@@ -18,3 +18,5 @@ All compatible GBFS systems can be found [here](https://github.com/NABSA/gbfs/bl
 
 [![Docker Build
 Status](https://img.shields.io/docker/build/andmos/bikedashboard.svg)](https://hub.docker.com/r/andmos/bikedashboard/)
+
+[![Docker Project](https://img.shields.io/docker/pulls/andmos/bikedashboard.svg)](https://hub.docker.com/r/andmos/bikedashboard/)
