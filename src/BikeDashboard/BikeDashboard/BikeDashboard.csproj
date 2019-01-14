@@ -20,5 +20,6 @@
     <Folder Include="DTO\" />
     <Folder Include="ViewModels\" />
     <Folder Include="GeoLocation\" />
+    <Folder Include="HealthChecks\" />
   </ItemGroup>
 </Project>

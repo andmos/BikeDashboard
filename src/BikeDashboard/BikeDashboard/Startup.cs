@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using BikeDashboard.Services;
+using BikeDashboard.HealthChecks;
 
 namespace BikeDashboard
 {
@@ -25,11 +26,14 @@ namespace BikeDashboard
 			// Add functionality to inject IOptions<T>
             services.AddOptions();
 
-			var bikeClient = new Client(Configuration.GetValue<string>("GBFSAddress"));
+            var gbfsAddress = Configuration.GetValue<string>("GBFSAddress");
+            var bikeClient = new Client(gbfsAddress);
 			var weatherService = new WeatherService(Configuration.GetValue<string>("WeatherServiceAPIKey"));
 			services.AddSingleton<IBikeshareClient>(bikeClient);
 			services.AddSingleton<IWeatherService>(weatherService);
 			services.AddSingleton<IStationService>(new StationService(bikeClient, Configuration.GetValue<string>("StationName")));
+
+            services.AddHealthChecks().AddCheck<BikeshareClientHealthCheck>(gbfsAddress);
         }
 
         public IConfiguration Configuration { get; }
@@ -48,7 +52,8 @@ namespace BikeDashboard
             }
 
             app.UseStaticFiles();
-            
+
+            app.UseHealthChecks("/api/health");
             app.UseMvc(routes =>
             {
 			routes.MapRoute(
