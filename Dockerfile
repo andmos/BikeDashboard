@@ -4,6 +4,8 @@ WORKDIR /app
 COPY src/BikeDashboard .
 RUN dotnet restore
 
+RUN dotnet test
+
 RUN dotnet publish -c Release -o out
 
 FROM microsoft/dotnet:2.2-aspnetcore-runtime
@@ -13,4 +15,3 @@ COPY --from=build-env /app/BikeDashboard/out/ .
 
 EXPOSE 5000
 ENTRYPOINT ["dotnet", "BikeDashboard.dll"]
-
