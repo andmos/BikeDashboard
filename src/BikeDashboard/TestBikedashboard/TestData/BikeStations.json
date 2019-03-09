@@ -1,0 +1,407 @@
+﻿{
+    "last_updated": 1552137891,
+    "data": {
+        "stations": [
+            {
+                "address": "S. P. Andersens vei",
+                "lat": 63.409888448864876,
+                "name": "S. P. Andersens vei",
+                "station_id": "293",
+                "capacity": 18,
+                "lon": 10.405212902563903
+            },
+            {
+                "address": "Mellomila",
+                "lat": 63.43100197586592,
+                "name": "Ilabekken",
+                "station_id": "268",
+                "capacity": 24,
+                "lon": 10.363873388291267
+            },
+            {
+                "address": "Haakon VII gate 3",
+                "lat": 63.44596413856424,
+                "name": "Lade idrettsanlegg vest",
+                "station_id": "236",
+                "capacity": 30,
+                "lon": 10.444293346970085
+            },
+            {
+                "address": "Dybdahls veg 2A",
+                "lat": 63.41364157249073,
+                "name": "Berg Studentby",
+                "station_id": "180",
+                "capacity": 25,
+                "lon": 10.414855613044438
+            },
+            {
+                "address": "Festninggata 34",
+                "lat": 63.42593349677826,
+                "name": "Kristiansten",
+                "station_id": "177",
+                "capacity": 27,
+                "lon": 10.41660167758505
+            },
+            {
+                "address": "Kongensgate 15",
+                "lat": 63.4304427209203,
+                "name": "Torvet I",
+                "station_id": "175",
+                "capacity": 15,
+                "lon": 10.392744433633425
+            },
+            {
+                "address": "Fjordgata 16",
+                "lat": 63.43483884684911,
+                "name": "Fjordgata",
+                "station_id": "148",
+                "capacity": 25,
+                "lon": 10.403396522008734
+            },
+            {
+                "address": "Illevollen",
+                "lat": 63.429289773431165,
+                "name": "Ilaparken",
+                "station_id": "47",
+                "capacity": 13,
+                "lon": 10.369248388233245
+            },
+            {
+                "address": "H\u00e5kon Magnussons gate 1A",
+                "lat": 63.43757529885024,
+                "name": "Dalen hageby",
+                "station_id": "4",
+                "capacity": 18,
+                "lon": 10.44872760772705
+            },
+            {
+                "address": "Sorgenfriveien 7",
+                "lat": 63.40575407332705,
+                "name": "Sorgenfri",
+                "station_id": "10",
+                "capacity": 13,
+                "lon": 10.399830937385559
+            },
+            {
+                "address": "Mellomveien 13",
+                "lat": 63.4387315071045,
+                "name": "Trikkestallen p\u00e5 Lademoen",
+                "station_id": "95",
+                "capacity": 25,
+                "lon": 10.430732667446136
+            },
+            {
+                "address": "Stiklestadveien 1",
+                "lat": 63.44208952370503,
+                "name": "Strandveikaia",
+                "station_id": "65",
+                "capacity": 16,
+                "lon": 10.427939146757126
+            },
+            {
+                "address": "Olav Magnussons veg 9",
+                "lat": 63.42545389268059,
+                "name": "Valentinlyst",
+                "station_id": "110",
+                "capacity": 24,
+                "lon": 10.441064536571503
+            },
+            {
+                "address": "H\u00e5kon VIIs gate 10",
+                "lat": 63.44073437153156,
+                "name": "H\u00e5kon VIIs gate 8-10",
+                "station_id": "97",
+                "capacity": 25,
+                "lon": 10.4596146941185
+            },
+            {
+                "address": "Otto Nielsens vei 4",
+                "lat": 63.42225473306107,
+                "name": "Tyholtt\u00e5rnet",
+                "station_id": "89",
+                "capacity": 32,
+                "lon": 10.42776882648468
+            },
+            {
+                "address": "Stadsings Dahls gate 4B",
+                "lat": 63.428597647344375,
+                "name": "Rosenborg skole",
+                "station_id": "16",
+                "capacity": 26,
+                "lon": 10.416186667604165
+            },
+            {
+                "address": "Falkenborgveien / Blomstadvegen",
+                "lat": 63.4362775074396,
+                "name": "Falkenborg",
+                "station_id": "56",
+                "capacity": 31,
+                "lon": 10.45697271823883
+            },
+            {
+                "address": "H\u00f8yskoleveien",
+                "lat": 63.41939366673445,
+                "name": "Gl\u00f8shaugen",
+                "station_id": "94",
+                "capacity": 31,
+                "lon": 10.403602123260498
+            },
+            {
+                "address": "Innherredsveien",
+                "lat": 63.4358846800558,
+                "name": "M\u00f8llenberg",
+                "station_id": "18",
+                "capacity": 25,
+                "lon": 10.419401004910469
+            },
+            {
+                "address": "Innherredsveien 16A",
+                "lat": 63.433509009133566,
+                "name": "Dokkparken",
+                "station_id": "1",
+                "capacity": 43,
+                "lon": 10.411412715911865
+            },
+            {
+                "address": "Erling skakkes gate 1",
+                "lat": 63.42889745011402,
+                "name": "Erling Skakkes gate",
+                "station_id": "74",
+                "capacity": 28,
+                "lon": 10.39928913116455
+            },
+            {
+                "address": "Kl\u00e6buveien 55",
+                "lat": 63.41541842278556,
+                "name": "Hesthagen",
+                "station_id": "123",
+                "capacity": 25,
+                "lon": 10.399565398693085
+            },
+            {
+                "address": "Nordre gate 23",
+                "lat": 63.433085554043984,
+                "name": "Nordre gate ",
+                "station_id": "20",
+                "capacity": 38,
+                "lon": 10.397391468286514
+            },
+            {
+                "address": "Bratt\u00f8rkaia 17B",
+                "lat": 63.43740318294613,
+                "name": "Bratt\u00f8rkaia",
+                "station_id": "9",
+                "capacity": 19,
+                "lon": 10.39729356765747
+            },
+            {
+                "address": "Bratt\u00f8rkaia 1",
+                "lat": 63.44075835708318,
+                "name": "Pirbadet",
+                "station_id": "107",
+                "capacity": 37,
+                "lon": 10.402169823646545
+            },
+            {
+                "address": "Lilleg\u00e5rdsbakken 8",
+                "lat": 63.42646180597998,
+                "name": "Lilleg\u00e5rdsbakken",
+                "station_id": "128",
+                "capacity": 22,
+                "lon": 10.403797924518585
+            },
+            {
+                "address": "Dyre Halses 1",
+                "lat": 63.43592006472795,
+                "name": "Bassengbakken",
+                "station_id": "108",
+                "capacity": 31,
+                "lon": 10.414788275957108
+            },
+            {
+                "address": "Kl\u00e6buveien 125",
+                "lat": 63.412525462202666,
+                "name": "Lerkendal",
+                "station_id": "86",
+                "capacity": 22,
+                "lon": 10.40068656206131
+            },
+            {
+                "address": "Prinsens gate 44",
+                "lat": 63.431170931099416,
+                "name": "St Olavs gate",
+                "station_id": "30",
+                "capacity": 31,
+                "lon": 10.390283614397049
+            },
+            {
+                "address": "Prinsens gate 1",
+                "lat": 63.42764485898629,
+                "name": "Nidarosdomen",
+                "station_id": "14",
+                "capacity": 15,
+                "lon": 10.394589900970459
+            },
+            {
+                "address": "Erling Skakkes gate 47A",
+                "lat": 63.42792321730192,
+                "name": "Kalvskinnet",
+                "station_id": "62",
+                "capacity": 25,
+                "lon": 10.389504432678223
+            },
+            {
+                "address": "Maskinistgata 1",
+                "lat": 63.43853720980968,
+                "name": "Dora I",
+                "station_id": "92",
+                "capacity": 25,
+                "lon": 10.419105291366577
+            },
+            {
+                "address": "Ilevollen/Osloveien",
+                "lat": 63.42907021700727,
+                "name": "Ilevollen",
+                "station_id": "76",
+                "capacity": 19,
+                "lon": 10.37181057035923
+            },
+            {
+                "address": "Havnegata",
+                "lat": 63.43928560696555,
+                "name": "Tollboden ",
+                "station_id": "31",
+                "capacity": 22,
+                "lon": 10.40479302406311
+            },
+            {
+                "address": "Kongens gate 99",
+                "lat": 63.430403126559675,
+                "name": "Skansen",
+                "station_id": "51",
+                "capacity": 22,
+                "lon": 10.37476971745491
+            },
+            {
+                "address": "Kongens gate 14B",
+                "lat": 63.43045711348886,
+                "name": "Kongens gate",
+                "station_id": "28",
+                "capacity": 19,
+                "lon": 10.398100912570953
+            },
+            {
+                "address": "Prinsens gate 2A",
+                "lat": 63.42663458755783,
+                "name": "Prinsen kinosenter",
+                "station_id": "44",
+                "capacity": 31,
+                "lon": 10.392784774303436
+            },
+            {
+                "address": "Klostergata 1",
+                "lat": 63.42186711370097,
+                "name": "Vollabakken ",
+                "station_id": "41",
+                "capacity": 25,
+                "lon": 10.399269014596939
+            },
+            {
+                "address": "Elgesetergate 2",
+                "lat": 63.42185871322338,
+                "name": "Studentersamfundet",
+                "station_id": "45",
+                "capacity": 31,
+                "lon": 10.39451614022255
+            },
+            {
+                "address": "Erling Skjalgsons gate 1",
+                "lat": 63.41978492000792,
+                "name": "Finalebanen",
+                "station_id": "55",
+                "capacity": 13,
+                "lon": 10.39221078157425
+            },
+            {
+                "address": "Professor Brochs gate 2",
+                "lat": 63.41614341778847,
+                "name": "Abels gate",
+                "station_id": "118",
+                "capacity": 25,
+                "lon": 10.396314561367035
+            },
+            {
+                "address": "S\u00f8ndre gate 13",
+                "lat": 63.432503742934855,
+                "name": "Cicignons plass ",
+                "station_id": "35",
+                "capacity": 19,
+                "lon": 10.400386825203896
+            },
+            {
+                "address": "Fjordgata 66",
+                "lat": 63.434423074986874,
+                "name": "Jomfrugateallmenningen",
+                "station_id": "19",
+                "capacity": 31,
+                "lon": 10.395468324422836
+            },
+            {
+                "address": "Sj\u00f8gangen 4",
+                "lat": 63.43605560561,
+                "name": "Trondheim S",
+                "station_id": "105",
+                "capacity": 47,
+                "lon": 10.399405807256699
+            },
+            {
+                "address": "Nedre Bakklandet 60",
+                "lat": 63.43225182105721,
+                "name": "Bakke bru",
+                "station_id": "21",
+                "capacity": 16,
+                "lon": 10.406996458768845
+            },
+            {
+                "address": "\u00d8vre Bakklandet 66",
+                "lat": 63.427946013768306,
+                "name": "Bakklandet",
+                "station_id": "52",
+                "capacity": 25,
+                "lon": 10.403148829936981
+            },
+            {
+                "address": "Kongens gate 19",
+                "lat": 63.42997362692187,
+                "name": "Leutenhaven",
+                "station_id": "126",
+                "capacity": 28,
+                "lon": 10.39144366979599
+            },
+            {
+                "address": "Havnegata 1",
+                "lat": 63.43527713641004,
+                "name": "Verftsbrua",
+                "station_id": "66",
+                "capacity": 13,
+                "lon": 10.405813604593277
+            },
+            {
+                "address": "Innherredsveien 61F",
+                "lat": 63.43660495943216,
+                "name": "Lademoparken",
+                "station_id": "6",
+                "capacity": 25,
+                "lon": 10.425844341516495
+            },
+            {
+                "address": "Nonnegata 3",
+                "lat": 63.43289961569575,
+                "name": "Thornesparken ",
+                "station_id": "25",
+                "capacity": 26,
+                "lon": 10.412772931158543
+            }
+        ]
+    }
+}

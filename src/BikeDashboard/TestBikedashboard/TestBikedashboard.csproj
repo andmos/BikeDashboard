@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
+    <PackageReference Include="BikeshareClient" Version="1.1.0" />
+    <PackageReference Include="coverlet.msbuild" Version="2.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
+    <Folder Include="TestData\" />
+    <Folder Include="DTO\" />
+    <Folder Include="Stubs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="TestData\BikeStations.json" />
+    <None Remove="TestData\BikeStationsStatus.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TestData\BikeStations.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\BikeStationsStatus.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BikeDashboard\BikeDashboard.csproj" />
+  </ItemGroup>
+</Project>
