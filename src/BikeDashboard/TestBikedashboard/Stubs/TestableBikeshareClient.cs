@@ -41,9 +41,9 @@ namespace TestBikedashboard.Helpers
             return dto.StationsStatusData.StationsStatus;
         }
 
-        public Task<SystemInformation> GetSystemInformationAsync()
+        public async Task<SystemInformation> GetSystemInformationAsync()
         {
-            throw new NotImplementedException();
+            return await Task.FromResult(new SystemInformation("1", "Test Bike Provider", "Nb", "Test Bike Provider inc.", "GMT", "44444", "SomeMail"));
         }
     }
 }
