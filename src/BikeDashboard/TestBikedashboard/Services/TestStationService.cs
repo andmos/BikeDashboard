@@ -31,12 +31,31 @@ namespace TestBikedashboard.Services
         }
 
         [Fact]
+        public async Task GetFavoriteStation_GivenInvalidDefaultStationName_ThrowsArgumentException() 
+        {
+            var cut = new StationService(_bikeshareClientStub, "InvalidStation");
+
+            await Assert.ThrowsAsync<ArgumentException>(() => cut.GetFavoriteStation());
+        }
+
+        [Fact]
         public async Task GetFavoriteStation_GivenValidStationNameParameter_ReturnsFavoriteStation()
         {
             var cut = new StationService(_bikeshareClientStub, _defaultFavoriteStation);
             var expectedStation = "Strandveikaia";
 
             var station = await cut.GetFavoriteStation(expectedStation);
+
+            Assert.Equal(expectedStation, station.Name);
+        }
+
+        [Fact]
+        public async Task GetFavoriteStation_GivenInvalidStationNameParameter_ReturnsDefaultFavoriteStation() 
+        {
+            var cut = new StationService(_bikeshareClientStub, _defaultFavoriteStation);
+            var expectedStation = _defaultFavoriteStation;
+
+            var station = await cut.GetFavoriteStation("InvalidStation");
 
             Assert.Equal(expectedStation, station.Name);
         }

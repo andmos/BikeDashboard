@@ -9,18 +9,18 @@ namespace BikeDashboard.Services
 {
     public class StationService : IStationService
     {
-        private readonly string _stationName;
+        private readonly string _defaultStationName;
         private readonly IBikeshareClient _bikeShareClient;
 
         public StationService(IBikeshareClient bikeshareClient, string defaultStationName)
         {
             _bikeShareClient = bikeshareClient;
-            _stationName = defaultStationName;
+            _defaultStationName = defaultStationName;
         }
-
+        
         public async Task<FavoriteStation> GetFavoriteStation()
         {
-            return await GetFavoriteStation(_stationName);
+            return await GetFavoriteStation(_defaultStationName);
         }
 
         public async Task<FavoriteStation> GetFavoriteStation(string stationName)
@@ -41,7 +41,12 @@ namespace BikeDashboard.Services
             }
             catch (InvalidOperationException noElementException)
             {
-                return await GetFavoriteStation(_stationName);
+                if (!stationName.Equals(_defaultStationName)) 
+                {
+                    return await GetFavoriteStation(_defaultStationName);
+                }
+                var bikeSystemInfo = await _bikeShareClient.GetSystemInformationAsync();
+                throw new ArgumentException($"Can't find {_defaultStationName} station in bikeshare-provider {bikeSystemInfo.Name} ({bikeSystemInfo.OperatorName})");
             }
             var stationsStatuses = await _bikeShareClient.GetStationsStatusAsync();
             var stationStatus = stationsStatuses.First(s => s.Id.Equals(stationIdentifier.Key));
