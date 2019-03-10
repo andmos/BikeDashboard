@@ -27,7 +27,7 @@ namespace BikeDashboard
             Configuration = builder.Build();
         }
 
-        public void ConfigureServices(IServiceCollection services)
+        public virtual void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
             // Add functionality to inject IOptions<T>

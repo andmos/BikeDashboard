@@ -7,14 +7,13 @@ namespace BikeDashboard
     {
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
+            var host = CreateWebHostBuilder(args).Build();
+            host.Run();
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseUrls("http://*:5000")
-                .UseStartup<Startup>()
-                .Build();
-		
+                .UseStartup<Startup>();
     }
 }
