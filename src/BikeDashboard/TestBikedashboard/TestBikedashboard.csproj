@@ -23,6 +23,8 @@
     <Folder Include="DTO\" />
     <Folder Include="Stubs\" />
     <Folder Include="Pages\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="HealthChecks\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="TestData\BikeStations.json" />
