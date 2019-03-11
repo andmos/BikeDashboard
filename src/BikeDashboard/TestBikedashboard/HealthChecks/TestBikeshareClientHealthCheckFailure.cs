@@ -24,7 +24,7 @@ namespace TestBikedashboard.HealthChecks
              services.AddSingleton<IBikeshareClient>(new Client("InvalidUri"));
         }
 
-         [Fact]
+        [Fact]
         public async Task CheckHealthAsync_GivenValidBikeshareClient_ReturnsDegraded()
         {
             var client = Factory.CreateClient();

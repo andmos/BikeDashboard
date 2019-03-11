@@ -7,7 +7,7 @@ using BikeshareClient.Models;
 using Newtonsoft.Json;
 using TestBikedashboard.DTO;
 
-namespace TestBikedashboard.Helpers
+namespace TestBikedashboard.Stubs
 {
     public class TestableBikeshareClient : IBikeshareClient
     {

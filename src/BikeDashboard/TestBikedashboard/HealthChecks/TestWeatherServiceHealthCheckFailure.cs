@@ -1,28 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
-using BikeDashboard;
-using BikeshareClient;
-using Microsoft.AspNetCore.TestHost;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using BikeDashboard.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using TestBikedashboard.DTO;
 using Xunit;
-using BikeDashboard.Services;
 
 namespace TestBikedashboard.HealthChecks
 {
-    public class TestBikeshareClientHealthCheckHealthy : TestBase
+    public class TestWeatherServiceHealthCheckFailure : TestBase
     {
 
+        protected override void ConfigureTestServices(IServiceCollection services)
+        {
+            base.ConfigureTestServices(services);
+            services.AddSingleton<IWeatherService>(new WeatherService("InvalidUri"));
+        }
 
         [Fact]
-        public async Task CheckHealthAsync_GivenValidBikeshareClient_ReturnsHealth()
+        public async Task CheckHealthAsync_GivenInvalidWeatherService_ReturnsDegraded()
         {
-
             var response = await Factory.CreateClient().GetAsync("/api/health");
 
             var content = await response.Content.ReadAsStringAsync();
@@ -31,9 +29,7 @@ namespace TestBikedashboard.HealthChecks
                 .Checks.FirstOrDefault(check => check.Service.Equals("testWeatherService")).Status;
 
             response.EnsureSuccessStatusCode();
-            Assert.Equal("Healthy", healthCheckStatus);
+            Assert.Equal("Degraded", healthCheckStatus);
         }
-
-
     }
 }

@@ -4,7 +4,7 @@ using Xunit;
 using BikeDashboard.Services;
 using BikeshareClient;
 using System.Linq;
-using TestBikedashboard.Helpers;
+using TestBikedashboard.Stubs;
 
 namespace TestBikedashboard.Services
 {

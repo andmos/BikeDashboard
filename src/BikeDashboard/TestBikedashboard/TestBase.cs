@@ -1,14 +1,13 @@
 using System;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
-using Xunit.Abstractions;
 using BikeDashboard;
-using TestBikedashboard.Helpers;
 using BikeDashboard.Services;
 using BikeshareClient;
 using Microsoft.Extensions.DependencyInjection;
+using TestBikedashboard.Stubs;
+using BikeDashboard.HealthChecks;
 
 namespace TestBikedashboard
 {
@@ -29,10 +28,13 @@ namespace TestBikedashboard
         protected virtual void ConfigureTestServices(IServiceCollection services)
         {
             IBikeshareClient bikeClient = new TestableBikeshareClient();
-            IWeatherService weatherService = new WeatherService("");
+            IWeatherService weatherService = new TestableWeatherService();
             services.AddSingleton(bikeClient);
             services.AddSingleton(weatherService);
             services.AddSingleton<IStationService>(new StationService(bikeClient, DefaultStation));
+            services.AddHealthChecks().AddCheck<BikeshareClientHealthCheck>("testBikeClient");
+            services.AddHealthChecks().AddCheck<WeatherServiceHealthCheck>("testWeatherService");
+
         }
 
 
