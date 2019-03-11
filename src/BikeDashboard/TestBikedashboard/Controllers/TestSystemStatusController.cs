@@ -8,17 +8,17 @@ using Xunit;
 
 namespace TestBikedashboard.Controllers
 {
-    public class TestSystemStatusController : IClassFixture<BikeDashboardCustomWebApplicationFactory<Startup>>
+    public class TestSystemStatusController : TestBase
     {
         private readonly HttpClient _client;
 
-        public TestSystemStatusController(BikeDashboardCustomWebApplicationFactory<Startup> factory) 
+        public TestSystemStatusController()
         {
-            _client = factory.CreateClient();
+            _client = Factory.CreateClient();
         }
 
         [Fact]
-        public async Task GetAsync_ReturnsSystemStatus() 
+        public async Task GetAsync_ReturnsSystemStatus()
         {
             var response = await _client.GetAsync("/api/SystemStatus");
 

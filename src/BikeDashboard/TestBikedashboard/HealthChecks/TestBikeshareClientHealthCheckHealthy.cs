@@ -15,22 +15,15 @@ using BikeDashboard.Services;
 
 namespace TestBikedashboard.HealthChecks
 {
-    public class TestBikeshareClientHealthCheck : IClassFixture<BikeDashboardCustomWebApplicationFactory<Startup>>
+    public class TestBikeshareClientHealthCheckHealthy : TestBase
     {
-        private readonly string _defaultStation;
-        private readonly BikeDashboardCustomWebApplicationFactory<Startup> _factory;
 
-        public TestBikeshareClientHealthCheck(BikeDashboardCustomWebApplicationFactory<Startup> factory)
-        {
-            _factory = factory;
-            _defaultStation = factory.DefaultStation;
-        }
 
         [Fact]
         public async Task CheckHealthAsync_GivenValidBikeshareClient_ReturnsHealth()
         {
 
-            var response = await _factory.CreateClient().GetAsync("/api/health");
+            var response = await Factory.CreateClient().GetAsync("/api/health");
 
             var content = await response.Content.ReadAsStringAsync();
             var healthCheckStatus = JsonConvert
@@ -40,5 +33,7 @@ namespace TestBikedashboard.HealthChecks
             response.EnsureSuccessStatusCode();
             Assert.Equal("Healthy", healthCheckStatus);
         }
+
+
     }
 }
