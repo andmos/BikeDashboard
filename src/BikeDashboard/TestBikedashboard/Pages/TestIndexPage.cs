@@ -7,20 +7,18 @@ using System.Linq;
 
 namespace TestBikedashboard.Pages
 {
-    public class TestIndexPage : IClassFixture<BikeDashboardCustomWebApplicationFactory<Startup>>
+    public class TestIndexPage : TestBase
     {
 
         private readonly HttpClient _client;
-        private readonly string _defaultStation;
 
-        public TestIndexPage(BikeDashboardCustomWebApplicationFactory<Startup> factory)
+        public TestIndexPage()
         {
-            _client = factory.CreateClient();
-            _defaultStation = factory.DefaultStation;
+            _client = Factory.CreateClient();
         }
 
         [Fact]
-        public async Task GetAsync_GivenCorrectConfiguration_ReturnsFavoriteStation() 
+        public async Task GetAsync_GivenCorrectConfiguration_ReturnsFavoriteStation()
         {
             var response = await _client.GetAsync("/");
 
@@ -32,11 +30,11 @@ namespace TestBikedashboard.Pages
             response.EnsureSuccessStatusCode();
             Assert.Equal("text/html; charset=utf-8",
                 response.Content.Headers.ContentType.ToString());
-            Assert.Collection(htmlElement, s => s.InnerText.Contains(_defaultStation));
+            Assert.Collection(htmlElement, s => s.InnerText.Contains(DefaultStation));
         }
 
         [Fact]
-        public async Task GetAsync_GivenStationQueryString_ReturnsCorrectStation() 
+        public async Task GetAsync_GivenStationQueryString_ReturnsCorrectStation()
         {
             var response = await _client.GetAsync("/?stationName=skansen");
 
@@ -52,7 +50,7 @@ namespace TestBikedashboard.Pages
         }
 
         [Fact]
-        public async Task GetAsync_GivenInvalidStationQuery_ReturnsDefaultStation() 
+        public async Task GetAsync_GivenInvalidStationQuery_ReturnsDefaultStation()
         {
             var response = await _client.GetAsync("/?stationName=skanseeeen");
 
@@ -64,7 +62,7 @@ namespace TestBikedashboard.Pages
             response.EnsureSuccessStatusCode();
             Assert.Equal("text/html; charset=utf-8",
                 response.Content.Headers.ContentType.ToString());
-            Assert.Collection(htmlElement, s => s.InnerText.Contains(_defaultStation));
+            Assert.Collection(htmlElement, s => s.InnerText.Contains(DefaultStation));
         }
     }
 }
