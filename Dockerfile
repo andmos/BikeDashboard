@@ -4,7 +4,7 @@ WORKDIR /app
 COPY src/BikeDashboard .
 RUN dotnet restore
 
-RUN dotnet test
+RUN dotnet test /p:CollectCoverage=true /p:Include="[BikeDashboard*]*"
 
 RUN dotnet publish -c Release -o out
 
