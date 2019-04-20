@@ -21,7 +21,6 @@ namespace TestBikedashboard.Controllers
         public async Task Get_GivenCorrectConfiguration_ReturnsStationWeatherDTO() 
         {
             var response = await _client.GetAsync("/api/FavoriteStation");
-
             var content = await response.Content.ReadAsStringAsync();
 
             var station = JsonConvert.DeserializeObject<StationWeatherDTO>(content);
@@ -33,7 +32,6 @@ namespace TestBikedashboard.Controllers
         public async Task Get_GivenValidStationAsQueryString_ReturnsStationWeatherDTO()
         {
             var response = await _client.GetAsync("/api/FavoriteStation?stationName=skansen");
-
             var content = await response.Content.ReadAsStringAsync();
 
             var station = JsonConvert.DeserializeObject<StationWeatherDTO>(content);
@@ -45,11 +43,23 @@ namespace TestBikedashboard.Controllers
         public async Task GetAsync_GivenInvalidStationQuery_ReturnsDefaultStation()
         {
             var response = await _client.GetAsync("/api/FavoriteStation?stationName=skanseeeen");
-
             var content = await response.Content.ReadAsStringAsync();
+
             var station = JsonConvert.DeserializeObject<StationWeatherDTO>(content);
 
             Assert.Equal(DefaultStation, station.Station.Name);
+        }
+
+        [Fact]
+        public async Task GetTaskAsync_GivenConfigurationWithWeatherServiceEnabled_ReturnsObjectWithWeatherReports()
+        {
+            var response = await _client.GetAsync("/api/FavoriteStation");
+            var content = await response.Content.ReadAsStringAsync();
+            var station = JsonConvert.DeserializeObject<StationWeatherDTO>(content);
+
+            var forcasts = station.ForecastReport.Forecasts;
+
+            Assert.All(forcasts, item => Assert.Equal(2.0, item.Rain.Rainfall));
         }
     }
 }
