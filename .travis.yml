@@ -4,9 +4,9 @@ language: minimal
 services:
   - docker
 script:
-    docker build -t andmos/bikesharedashboard .
+  - docker build -t andmos/bikesharedashboard .
 after_success:
-    export id=$(docker images --filter "label=test=true" -q | head -1)
-    docker create --name testcontainer $id
-    docker cp testcontainer:/app/TestBikedashboard/coverage.opencover.xml .
-    bash <(curl -s https://codecov.io/bash)
+  - export id=$(docker images --filter "label=test=true" -q | head -1)
+  - docker create --name testcontainer $id
+  - docker cp testcontainer:/app/TestBikedashboard/coverage.opencover.xml .
+  - bash <(curl -s https://codecov.io/bash)
