@@ -8,5 +8,8 @@ namespace BikeDashboard.Models
         public int Stations { get; set; }
         public int StationsWithAvailableBikes { get; set; }
         public int StationsWithAvailableLocks { get; set; }
+        public int StationsInstalled { get; set; }
+        public int StationsRenting { get; set; }
+        public int StationsReturning { get; set; }
     }
 }

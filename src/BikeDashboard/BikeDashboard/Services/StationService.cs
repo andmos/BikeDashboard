@@ -26,13 +26,14 @@ namespace BikeDashboard.Services
         public async Task<FavoriteStation> GetFavoriteStation(string stationName)
         {
             var stations = await _bikeShareClient.GetStationsAsync();
-            var stationIdentifier = new KeyValuePair<string, string>();
+            StationIdentity stationIdentifier;
             StationCoordinates stationCoordinates;
             try
             {
-                stationIdentifier = new KeyValuePair<string, string>(
-                stations.First(s => s.Name.ToLower().Equals(stationName.ToLower())).Id,
-                stations.First(s => s.Name.ToLower().Equals(stationName.ToLower())).Name);
+                stationIdentifier = new StationIdentity(
+                    stations.First(s => s.Name.ToLower().Equals(stationName.ToLower())).Name,
+                    stations.First(s => s.Name.ToLower().Equals(stationName.ToLower())).Id
+                    );
                 stationCoordinates = new StationCoordinates
                 {
                     Latitude = stations.First(s => s.Name.ToLower().Equals(stationName.ToLower())).Latitude,
@@ -49,9 +50,9 @@ namespace BikeDashboard.Services
                 throw new ArgumentException($"Can't find {_defaultStationName} station in bikeshare-provider {bikeSystemInfo.Name} ({bikeSystemInfo.OperatorName})");
             }
             var stationsStatuses = await _bikeShareClient.GetStationsStatusAsync();
-            var stationStatus = stationsStatuses.First(s => s.Id.Equals(stationIdentifier.Key));
+            var stationStatus = stationsStatuses.First(s => s.Id.Equals(stationIdentifier.Id));
 
-            return new FavoriteStation(stationIdentifier.Value, stationStatus.BikesAvailable, stationStatus.DocksAvailable, stationCoordinates);
+            return new FavoriteStation(stationIdentifier.Name, stationStatus.BikesAvailable, stationStatus.DocksAvailable, stationCoordinates);
         }
 
         public async Task<IEnumerable<Station>> GetAllAvailableStations()
@@ -68,7 +69,14 @@ namespace BikeDashboard.Services
                 return new FavoriteStation("No Available Bikes found from bikeshare provider.", 0, 0, baseStationCoordinates);
             }
 
-            var closestToBaseStation = stationList.OrderBy(s => (GeoLocation.GeoCalculator.GetDistance(baseStationCoordinates.Latitude, baseStationCoordinates.Longitude, s.Latitude, s.Longitude, 2, GeoLocation.DistanceUnit.Meters))).First();
+            var closestToBaseStation = stationList.OrderBy(
+                s => 
+                    (GeoLocation.GeoCalculator.GetDistance(
+                        baseStationCoordinates.Latitude, 
+                        baseStationCoordinates.Longitude, 
+                        s.Latitude, s.Longitude, 2, GeoLocation.DistanceUnit.Meters)
+                    ))
+                    .First();
             return await GetFavoriteStation(closestToBaseStation.Name);
 
         }
@@ -76,7 +84,8 @@ namespace BikeDashboard.Services
         private async Task<IEnumerable<Station>> RemoveEmptyStations()
         {
             var stationsStatuses = await _bikeShareClient.GetStationsStatusAsync();
-            var emptyStations = new HashSet<string>(stationsStatuses.Where(s => s.BikesAvailable == 0).Select(n => n.Id));
+            var emptyStations = new HashSet<string>(stationsStatuses.Where(
+                s => s.BikesAvailable == 0 || !s.Renting).Select(n => n.Id));
             var stations = await GetAllAvailableStations();
             var stationList = stations.ToList();
             stationList.RemoveAll(s => emptyStations.Contains(s.Id));

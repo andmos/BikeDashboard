@@ -444,7 +444,7 @@
                 "is_installed": 1
             },
             {
-                "is_renting": 1,
+                "is_renting": 0,
                 "is_returning": 1,
                 "station_id": "25",
                 "last_reported": 1552137891,

@@ -20,16 +20,20 @@ namespace BikeDashboard.Controllers
         public async Task<SystemStatus> GetAsync()
         {
             var allStations = await _bikeshareClient.GetStationsAsync();
-            var stationsWithBikes = await _bikeshareClient.GetStationsStatusAsync();
+            var stationStatuses = await _bikeshareClient.GetStationsStatusAsync();
             var systemInfo = await _bikeshareClient.GetSystemInformationAsync();
 
             return new SystemStatus
-            { 
-                SystemName = systemInfo.Name, 
-                SystemOperator = systemInfo.OperatorName, 
-                Stations = allStations.Count(), 
-                StationsWithAvailableBikes = stationsWithBikes.Count(s => s.BikesAvailable > 0),
-                StationsWithAvailableLocks = stationsWithBikes.Count(s => s.DocksAvailable > 0) 
+            {
+                SystemName = systemInfo.Name,
+                SystemOperator = systemInfo.OperatorName,
+                Stations = allStations.Count(),
+                StationsWithAvailableBikes = stationStatuses.Count(s => s.BikesAvailable > 0),
+                StationsWithAvailableLocks = stationStatuses.Count(s => s.DocksAvailable > 0),
+                StationsInstalled = stationStatuses.Count(s => s.Installed),
+                StationsRenting = stationStatuses.Count(s => s.Renting),
+                StationsReturning = stationStatuses.Count(s => s.Returning)
+
             };
 
         }
