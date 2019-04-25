@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System.Linq;
 using System.Net.Mime;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace BikeDashboard
 {
@@ -23,7 +24,7 @@ namespace BikeDashboard
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json")
                 .AddEnvironmentVariables();
-
+            Console.WriteLine(env.WebRootPath);
             Configuration = builder.Build();
         }
 
@@ -76,6 +77,13 @@ namespace BikeDashboard
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
             });
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
+
+
         }
 
         private HealthCheckOptions CreateHealthCheckOptions()
