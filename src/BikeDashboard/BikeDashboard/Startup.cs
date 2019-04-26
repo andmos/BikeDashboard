@@ -64,8 +64,10 @@ namespace BikeDashboard
             }
 
             app.UseStaticFiles();
+            app.UsePathBase(Configuration["PathBase"]);
 
             var healthCheckOptions = CreateHealthCheckOptions();
+
             app.UseHealthChecks("/api/health", healthCheckOptions);
 
             app.UseMvc(routes =>
