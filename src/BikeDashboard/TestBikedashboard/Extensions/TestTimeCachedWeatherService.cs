@@ -35,6 +35,14 @@ namespace TestBikedashboard.Extensions
             Assert.Same(weatherForcast1, weatherForcast2);
         }
 
+        [Fact]
+        public void FeatureEnabled_GivenValidIWeatherService_FeatureEnabled() 
+        {
+            var cut = CreateClassUnderTest();
+
+            Assert.True(cut.FeatureEnabled);
+        }
+
         private TimeCachedWeatherService CreateClassUnderTest() 
         {
             var services = new ServiceCollection();
