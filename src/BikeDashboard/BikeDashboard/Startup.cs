@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using System.Linq;
 using System.Net.Mime;
 using Microsoft.AspNetCore.HttpOverrides;
+using BikeDashboard.Extensions;
 
 namespace BikeDashboard
 {
@@ -34,11 +35,14 @@ namespace BikeDashboard
             // Add functionality to inject IOptions<T>
             services.AddOptions();
 
+            services.AddMemoryCache();
+
             var gbfsAddress = Configuration.GetValue<string>("GBFSAddress");
             IBikeshareClient bikeClient = new Client(gbfsAddress);
             IWeatherService weatherService = new WeatherService(Configuration.GetValue<string>("WeatherServiceAPIKey"));
             services.AddSingleton(bikeClient);
             services.AddSingleton(weatherService);
+            services.Decorate<IWeatherService, TimeCachedWeatherService>();
             services.AddSingleton<IStationService>(new StationService(bikeClient, Configuration.GetValue<string>("StationName")));
 
             services.AddHealthChecks().AddCheck<BikeshareClientHealthCheck>(nameof(bikeClient));
