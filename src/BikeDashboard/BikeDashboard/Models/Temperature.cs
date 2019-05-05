@@ -3,8 +3,8 @@ namespace BikeDashboard.Models
 {
     public class Temperature
     {
-		public Double Min { get; }
-		public Double Max { get; }
+		public double Min { get; }
+		public double Max { get; }
 		public int Humidity { get; } 
 
 		public Temperature(double min, double max, int humidity)

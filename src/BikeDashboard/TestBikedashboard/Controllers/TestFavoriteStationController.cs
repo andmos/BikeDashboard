@@ -59,7 +59,7 @@ namespace TestBikedashboard.Controllers
 
             var forcasts = station.ForecastReport.Forecasts;
 
-            Assert.All(forcasts, item => Assert.Equal(2.0, item.Rain.Rainfall));
+            Assert.All(forcasts, item => Assert.Equal(2.0, item.Rain.Value));
         }
     }
 }

@@ -4,7 +4,7 @@ namespace BikeDashboard.ViewModels
 {
     public class WeatherForecastViewModel
     {
-		public Rain Rain { get; }
+		public Rainfall Rain { get; }
         public Temperature Temperature { get; }
         public Wind Wind { get; }
         public String Description { get; }
@@ -16,7 +16,7 @@ namespace BikeDashboard.ViewModels
 
 		public WeatherForecastViewModel(WeatherForecast forecast, DateTime nextForcastDate)
         {
-			Rain = new Rain(Math.Round(forecast.Rain.Rainfall, _decimalAccuracy));
+			Rain = new Rainfall(Math.Round(forecast.Rain.Value, _decimalAccuracy));
 			Temperature = new Temperature(
 				Math.Round(forecast.Temperature.Min, _decimalAccuracy), 
 				Math.Round(forecast.Temperature.Max, _decimalAccuracy), 
