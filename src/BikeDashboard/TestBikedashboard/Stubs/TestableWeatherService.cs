@@ -15,7 +15,7 @@ namespace TestBikedashboard.Stubs
             var weatherForcastReport = new WeatherForecastReport(
             new[] 
                 { new WeatherForecast(
-                    new Rain(2.0),
+                    new Rainfall(2.0),
                     new Temperature(2, 5, 2), 
                     new Wind(10), 
                     "Light Rain", 

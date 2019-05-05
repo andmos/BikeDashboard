@@ -51,7 +51,7 @@ namespace BikeDashboard.Services
 
 			foreach(var forecastDto in weatherReportDto.list)
 			{
-				var rain = new Models.Rain(forecastDto.rain?.Rainfall ?? 0);
+				var rain = new Rainfall(forecastDto.rain?.Rainfall ?? forecastDto.snow?.Snowfall ?? 0);
 				var temperature = new Temperature(forecastDto.main.temp_min, forecastDto.main.temp_max, forecastDto.main.humidity);
 				var wind = new Models.Wind(forecastDto.wind.speed);
 				var forecast = new WeatherForecast(rain, 

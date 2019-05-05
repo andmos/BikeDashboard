@@ -42,6 +42,12 @@ namespace BikeDashboard.DTO
 		public double? Rainfall { get; set; }
     }
 
+    public class Snow
+    {
+        [JsonProperty("3h")]
+        public double? Snowfall { get; set; }
+    }
+
     public class Sys
     {
         public string pod { get; set; }
@@ -57,6 +63,7 @@ namespace BikeDashboard.DTO
         public Clouds clouds { get; set; }
         public Wind wind { get; set; }
         public Rain rain { get; set; }
+        public Snow snow { get; set; }
         public Sys sys { get; set; }
         public string dt_txt { get; set; }
     }
