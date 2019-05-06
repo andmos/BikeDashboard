@@ -55,20 +55,33 @@ namespace BikeDashboard.Services
 			var forecasts = new List<WeatherForecast>(); 
 
 			foreach(var forecastDto in weatherReportDto.list)
-			{
-				var rain = new Rainfall(forecastDto.rain?.Rainfall ?? forecastDto.snow?.Snowfall ?? 0);
-				var temperature = new Temperature(forecastDto.main.temp_min, forecastDto.main.temp_max, forecastDto.main.humidity);
-				var wind = new Models.Wind(forecastDto.wind.speed);
-				var forecast = new WeatherForecast(rain, 
-				                                   temperature, 
-				                                   wind, 
-				                                   forecastDto.weather.FirstOrDefault().description, 
-				                                   forecastDto.weather.FirstOrDefault().main,
-				                                   forecastDto.RecordTime);
-				forecasts.Add(forecast);
-			}
+            {
 
-			return new WeatherForecastReport(forecasts);
+                var precipitation = new Precipitation(ParsePrecipitationQuantity(forecastDto), ParsePrecipitationType(forecastDto));
+                var temperature = new Temperature(forecastDto.main.temp_min, forecastDto.main.temp_max, forecastDto.main.humidity);
+                var wind = new Models.Wind(forecastDto.wind.speed);
+                var forecast = new WeatherForecast(precipitation,
+                                                   temperature,
+                                                   wind,
+                                                   forecastDto.weather.FirstOrDefault().description,
+                                                   forecastDto.weather.FirstOrDefault().main,
+                                                   forecastDto.RecordTime);
+                forecasts.Add(forecast);
+            }
+
+            return new WeatherForecastReport(forecasts);
 		}
+
+        private static double ParsePrecipitationQuantity(Forecast forecastDto)
+        {
+            return forecastDto.rain?.Rainfall ?? forecastDto.snow?.Snowfall ?? 0;
+        }
+
+        private static PrecipitationType ParsePrecipitationType(Forecast weatherForecastDto) 
+        {
+            return weatherForecastDto.rain?.Rainfall != null 
+                ? PrecipitationType.Rain : weatherForecastDto.snow?.Snowfall != null 
+                ? PrecipitationType.Snow : PrecipitationType.Rain;
+        }
     }
 }

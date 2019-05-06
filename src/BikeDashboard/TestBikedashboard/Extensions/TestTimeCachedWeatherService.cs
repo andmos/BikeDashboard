@@ -20,7 +20,7 @@ namespace TestBikedashboard.Extensions
 
             var weatherForcast = await cut.GetDailyForeCastAsync(testCoordinates);
 
-            Assert.Equal(2.0, weatherForcast.Forecasts.FirstOrDefault().Rain.Value);
+            Assert.Equal(2.0, weatherForcast.Forecasts.FirstOrDefault().Precipitation.Value);
         }
 
         [Fact] 

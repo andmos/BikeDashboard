@@ -15,13 +15,23 @@ namespace TestBikedashboard.Stubs
             var weatherForcastReport = new WeatherForecastReport(
             new[] 
                 { new WeatherForecast(
-                    new Rainfall(2.0),
+                    new Precipitation(2.0, PrecipitationType.Rain),
                     new Temperature(2, 5, 2), 
                     new Wind(10), 
                     "Light Rain", 
                     "Boring weather", 
                     new DateTime(1979, 07, 28, 22, 35, 5, 
+                    DateTimeKind.Utc)), 
+
+                  new WeatherForecast(
+                    new Precipitation(2.0, PrecipitationType.Snow),
+                    new Temperature(2, 5, 2),
+                    new Wind(10),
+                    "Light Snow",
+                    "Snowy weather",
+                    new DateTime(1979, 07, 28, 22, 40, 5,
                     DateTimeKind.Utc))
+
             });
 
             return await Task.FromResult(weatherForcastReport);
