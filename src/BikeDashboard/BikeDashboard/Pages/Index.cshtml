@@ -20,7 +20,18 @@
                 {
                     <br />
                     <div title="@forecast.Description">
-                       <img src="~/images/clock.svg" style="width: 20px; height: 20px;" /> @forecast.ForecastStartTime - @forecast.ForecastEndTime <img src="~/images/thermometer-half.svg" style="width: 20px; height: 20px;" /> @forecast.Temperature.Min &deg;C / @forecast.Temperature.Max &deg;C <img src="~/images/tint.svg" style="width: 20px; height: 20px;" />  @forecast.Rain.Value mm <img src="~/images/strong-wind.svg" style="width: 40px; height: 40px;" /> @forecast.Wind.Speed &#13223;
+                        <img src="~/images/clock.svg" style="width: 20px; height: 20px; margin:0px 4px" /> @forecast.ForecastStartTime - @forecast.ForecastEndTime
+                        <img src="~/images/thermometer-half.svg" style="width: 20px; height: 20px; margin:0px 4px"  /> @forecast.Temperature.Min &deg;C / @forecast.Temperature.Max &deg;C
+                        @if (forecast.Rain.PrecipitationType == Models.PrecipitationType.Snow)
+                        {
+                            <img src="~/images/snowflake-solid.svg" style="width: 20px; height: 20px; margin:0px 4px" /> 
+                        }
+                        else
+                        {
+                            <img src="~/images/tint.svg" style="width: 20px; height: 20px; margin:0px 4px" /> 
+                        }
+                         @forecast.Rain.Value mm
+                        <img src="~/images/strong-wind.svg" style="width: 40px; height: 40px; margin:0px 4px" /> @forecast.Wind.Speed &#13223;
                     </div>
                  }
             }

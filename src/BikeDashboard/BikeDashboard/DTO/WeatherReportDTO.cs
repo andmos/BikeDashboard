@@ -53,7 +53,7 @@ namespace BikeDashboard.DTO
         public string pod { get; set; }
     }
 
-    public class List
+    public class Forecast
     {
 		[JsonConverter(typeof(UnixDateTimeConverter)), JsonProperty("dt")]
 		public DateTime RecordTime { get; set; }
@@ -74,7 +74,7 @@ namespace BikeDashboard.DTO
         public double message { get; set; }
 		[JsonProperty("cnt")]
 		public int NumberOfForecasts { get; set; }
-        public List<List> list { get; set; }
+        public List<Forecast> list { get; set; }
        
     }
 }

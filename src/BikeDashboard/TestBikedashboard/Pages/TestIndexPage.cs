@@ -64,5 +64,6 @@ namespace TestBikedashboard.Pages
                 response.Content.Headers.ContentType.ToString());
             Assert.Collection(htmlElement, s => s.InnerText.Contains(DefaultStation));
         }
+
     }
 }
