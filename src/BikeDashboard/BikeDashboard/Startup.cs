@@ -15,6 +15,7 @@ using System.Net.Mime;
 using Microsoft.AspNetCore.HttpOverrides;
 using BikeDashboard.Extensions;
 using BikeDashboard.Configuration;
+using System.Net.Http;
 
 namespace BikeDashboard
 {
@@ -43,9 +44,15 @@ namespace BikeDashboard
             services.Configure<WeatherServiceSettings>(Configuration);
 
             var gbfsAddress = Configuration.GetValue<string>("GBFSAddress");
-            IBikeshareClient bikeClient = new Client(gbfsAddress);
 
-            services.AddSingleton(bikeClient);
+            services.AddHttpClient("GBFSClient", client =>
+            {
+                client.BaseAddress = new Uri(gbfsAddress);
+            });
+
+            services.AddSingleton<IBikeshareClient, Client>(sp =>
+                new Client("", sp.GetService<IHttpClientFactory>().CreateClient("GBFSClient")));
+            
             services.AddSingleton<IWeatherService, WeatherService>();
             services.Decorate<IWeatherService, TimeCachedWeatherService>();
             services.AddSingleton<IStationService, StationService>();
