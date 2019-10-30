@@ -34,7 +34,7 @@ namespace TestBikedashboard.HealthChecks
             var content = await response.Content.ReadAsStringAsync();
             var healthCheckStatus = JsonConvert
             .DeserializeObject<HealthCheckDTO>(content)
-                .Checks.FirstOrDefault(check => check.Service.Equals("bikeClient")).Status;
+                .Checks.FirstOrDefault(check => check.Service.Equals("BikeClient")).Status;
 
 
             Assert.Equal("Unhealthy", healthCheckStatus);
