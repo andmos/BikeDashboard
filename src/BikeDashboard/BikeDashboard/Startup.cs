@@ -50,12 +50,12 @@ namespace BikeDashboard
                 client.BaseAddress = new Uri(gbfsAddress);
             });
 
-            services.AddSingleton<IBikeshareClient, Client>(sp =>
+            services.AddTransient<IBikeshareClient, Client>(sp =>
                 new Client("", sp.GetService<IHttpClientFactory>().CreateClient("GBFSClient")));
             
-            services.AddSingleton<IWeatherService, WeatherService>();
+            services.AddTransient<IWeatherService, WeatherService>();
             services.Decorate<IWeatherService, TimeCachedWeatherService>();
-            services.AddSingleton<IStationService, StationService>();
+            services.AddTransient<IStationService, StationService>();
 
             services.AddHealthChecks().AddCheck<BikeshareClientHealthCheck>("BikeClient");
             var provider = services.BuildServiceProvider();
@@ -101,8 +101,6 @@ namespace BikeDashboard
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
-
-
         }
 
         private HealthCheckOptions CreateHealthCheckOptions()
