@@ -7,6 +7,8 @@ using BikeDashboard.Models;
 using Newtonsoft.Json;
 using System.Linq;
 using System.Net;
+using BikeDashboard.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace BikeDashboard.Services
 {
@@ -19,13 +21,12 @@ namespace BikeDashboard.Services
 		private readonly int _numberOfForecastRecords = 4; // 3 hours between forecasts
         private readonly HttpClient _httpClient;
 
-        public WeatherService(string weatherServiceAPIKey)
+        public WeatherService(IOptions<WeatherServiceSettings> weatherServiceSettings, IHttpClientFactory httpClientFactory)
         {
-            _weatherServiceAPIKey = weatherServiceAPIKey;
-            _httpClient = new HttpClient()
-            {
-                BaseAddress = ApiBaseAddress,
-            };
+            _weatherServiceAPIKey = weatherServiceSettings.Value.WeatherServiceAPIKey;
+            _httpClient = httpClientFactory.CreateClient();
+            _httpClient.BaseAddress = weatherServiceSettings.Value.ApiBaseAddress;
+
             ServicePointManager.FindServicePoint(ApiBaseAddress).ConnectionLeaseTimeout = _servicePointLeaseTime;
 
         }

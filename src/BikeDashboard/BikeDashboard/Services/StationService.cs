@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BikeDashboard.Configuration;
 using BikeDashboard.Models;
 using BikeshareClient;
 using BikeshareClient.Models;
+using Microsoft.Extensions.Options;
+
 namespace BikeDashboard.Services
 {
     public class StationService : IStationService
@@ -12,10 +15,10 @@ namespace BikeDashboard.Services
         private readonly string _defaultStationName;
         private readonly IBikeshareClient _bikeShareClient;
 
-        public StationService(IBikeshareClient bikeshareClient, string defaultStationName)
+        public StationService(IBikeshareClient bikeshareClient, IOptions<StationServiceSettings> stationSettings)
         {
             _bikeShareClient = bikeshareClient;
-            _defaultStationName = defaultStationName;
+            _defaultStationName = stationSettings.Value.StationName;
         }
         
         public async Task<FavoriteStation> GetFavoriteStation()

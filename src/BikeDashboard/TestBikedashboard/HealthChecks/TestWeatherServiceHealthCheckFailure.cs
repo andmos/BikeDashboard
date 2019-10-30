@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using BikeDashboard.Configuration;
 using BikeDashboard.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
@@ -15,7 +16,13 @@ namespace TestBikedashboard.HealthChecks
         protected override void ConfigureTestServices(IServiceCollection services)
         {
             base.ConfigureTestServices(services);
-            services.AddSingleton<IWeatherService>(new WeatherService("InvalidUri"));
+            services.Configure<WeatherServiceSettings>(option =>
+            {
+                option.ApiBaseAddress = new Uri("http://invalidUri");
+                option.WeatherServiceAPIKey = "NoKey";
+            });
+
+            services.AddSingleton<IWeatherService, WeatherService>();
         }
 
         [Fact]
@@ -31,5 +38,6 @@ namespace TestBikedashboard.HealthChecks
             response.EnsureSuccessStatusCode();
             Assert.Equal("Degraded", healthCheckStatus);
         }
+
     }
 }
