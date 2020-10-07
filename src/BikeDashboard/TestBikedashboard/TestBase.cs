@@ -1,5 +1,3 @@
-using System;
-using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using BikeDashboard;

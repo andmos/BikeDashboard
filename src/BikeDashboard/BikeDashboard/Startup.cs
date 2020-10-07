@@ -1,10 +1,7 @@
-using BikeshareClient;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using BikeDashboard.Services;
-using BikeDashboard.HealthChecks;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using System;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
@@ -13,65 +10,30 @@ using Newtonsoft.Json;
 using System.Linq;
 using System.Net.Mime;
 using Microsoft.AspNetCore.HttpOverrides;
-using BikeDashboard.Extensions;
-using BikeDashboard.Configuration;
-using System.Net.Http;
+using Microsoft.Extensions.Hosting;
 
 namespace BikeDashboard
 {
     public class Startup
     {
-        public Startup(IHostingEnvironment env)
+        public Startup(IConfiguration configuration)
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json")
-                .AddEnvironmentVariables();
-            Console.WriteLine(env.WebRootPath);
-            Configuration = builder.Build();
+            Configuration = configuration;
         }
-
+        
+        public IConfiguration Configuration { get; }
+        
         public virtual void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
-            // Add functionality to inject IOptions<T>
-            services.AddOptions();
-
-            services.AddMemoryCache();
-            services.AddHttpClient();
-
-            services.Configure<StationServiceSettings>(Configuration);
-            services.Configure<WeatherServiceSettings>(Configuration);
-
-            var gbfsAddress = Configuration.GetValue<string>("GBFSAddress");
-
-            services.AddHttpClient("GBFSClient", client =>
-            {
-                client.BaseAddress = new Uri(gbfsAddress);
-            });
-
-            services.AddTransient<IBikeshareClient, Client>(sp =>
-                new Client("", sp.GetService<IHttpClientFactory>().CreateClient("GBFSClient")));
+            services.AddMvc(options => options.EnableEndpointRouting = false);
+            services.AddRouting(options => options.LowercaseUrls = true);
             
-            services.AddTransient<IWeatherService, WeatherService>();
-            services.Decorate<IWeatherService, TimeCachedWeatherService>();
-            services.AddTransient<IStationService, StationService>();
-
-            services.AddHealthChecks().AddCheck<BikeshareClientHealthCheck>("BikeClient");
-            var provider = services.BuildServiceProvider();
-            var registeredWeatherService = provider.GetService<IWeatherService>();
-            if (registeredWeatherService.FeatureEnabled)
-            {
-                services.AddHealthChecks().AddCheck<WeatherServiceHealthCheck>("WeatherService");
-            }
-            services.BuildServiceProvider();
+            ServiceRegistrator.RegisterServices(services, Configuration);
+            ServiceRegistrator.RegisterHealthChecks(services, Configuration);
         }
 
-        public IConfiguration Configuration { get; }
-
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -81,12 +43,13 @@ namespace BikeDashboard
             {
                 app.UseExceptionHandler("/Error");
             }
-
+            
             app.UseStaticFiles();
 
             var healthCheckOptions = CreateHealthCheckOptions();
             app.UseHealthChecks("/api/health", healthCheckOptions);
-
+            app.UseRouting();
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

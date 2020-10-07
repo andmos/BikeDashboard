@@ -13,36 +13,36 @@ using Microsoft.Extensions.Options;
 namespace BikeDashboard.Services
 {
 	public class WeatherService : IWeatherService
-    {
-        private readonly Uri ApiBaseAddress = new Uri("https://api.openweathermap.org/data/2.5/forecast");
+	{
+		private readonly Uri _apiBaseAddress;
         private readonly int _servicePointLeaseTime = 60000;
-        private readonly string _weatherServiceAPIKey;
+        private readonly string _weatherServiceApiKey;
 		private readonly string _tempUnit = "metric";
 		private readonly int _numberOfForecastRecords = 4; // 3 hours between forecasts
         private readonly HttpClient _httpClient;
 
         public WeatherService(IOptions<WeatherServiceSettings> weatherServiceSettings, IHttpClientFactory httpClientFactory)
         {
-            _weatherServiceAPIKey = weatherServiceSettings.Value.WeatherServiceAPIKey;
+            _weatherServiceApiKey = weatherServiceSettings.Value.WeatherServiceApiKey;
+            _apiBaseAddress = weatherServiceSettings.Value.ApiBaseAddress;
             _httpClient = httpClientFactory.CreateClient();
-            _httpClient.BaseAddress = weatherServiceSettings.Value.ApiBaseAddress;
+            _httpClient.BaseAddress = _apiBaseAddress;
 
-            ServicePointManager.FindServicePoint(ApiBaseAddress).ConnectionLeaseTimeout = _servicePointLeaseTime;
-
+            ServicePointManager.FindServicePoint(_apiBaseAddress).ConnectionLeaseTimeout = _servicePointLeaseTime;
         }
 
-		public bool FeatureEnabled => !string.IsNullOrWhiteSpace(_weatherServiceAPIKey);
+		public bool FeatureEnabled => !string.IsNullOrWhiteSpace(_weatherServiceApiKey);
 
 		public async Task<WeatherForecastReport> GetDailyForeCastAsync(StationCoordinates coordinates)
 		{
             var response = await _httpClient.GetAsync($"?lat={coordinates.Latitude}" +
 				                                     $"&lon={coordinates.Longitude}" +
-				                                     $"&APPID={_weatherServiceAPIKey}" +
+				                                     $"&APPID={_weatherServiceApiKey}" +
 				                                     $"&units={_tempUnit}" +
 				                                     $"&cnt={_numberOfForecastRecords}");
             if (!response.IsSuccessStatusCode)
             {
-				throw new NotImplementedException($"Could not find any weather data, {ApiBaseAddress} returned status code {response.StatusCode}");
+				throw new NotImplementedException($"Could not find any weather data, {_apiBaseAddress} returned status code {response.StatusCode}");
             }
 			var content = await response.Content.ReadAsStringAsync();
                 
@@ -57,15 +57,14 @@ namespace BikeDashboard.Services
 
 			foreach(var forecastDto in weatherReportDto.list)
             {
-
-                var precipitation = new Precipitation(ParsePrecipitationQuantity(forecastDto), ParsePrecipitationType(forecastDto));
+	            var precipitation = new Precipitation(ParsePrecipitationQuantity(forecastDto), ParsePrecipitationType(forecastDto));
                 var temperature = new Temperature(forecastDto.main.temp_min, forecastDto.main.temp_max, forecastDto.main.humidity);
                 var wind = new Models.Wind(forecastDto.wind.speed);
                 var forecast = new WeatherForecast(precipitation,
                                                    temperature,
                                                    wind,
-                                                   forecastDto.weather.FirstOrDefault().description,
-                                                   forecastDto.weather.FirstOrDefault().main,
+                                                   forecastDto.weather.FirstOrDefault()?.description,
+                                                   forecastDto.weather.FirstOrDefault()?.main,
                                                    forecastDto.RecordTime);
                 forecasts.Add(forecast);
             }

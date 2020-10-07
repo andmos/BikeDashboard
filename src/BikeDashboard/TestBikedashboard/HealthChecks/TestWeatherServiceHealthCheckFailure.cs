@@ -19,7 +19,7 @@ namespace TestBikedashboard.HealthChecks
             services.Configure<WeatherServiceSettings>(option =>
             {
                 option.ApiBaseAddress = new Uri("http://invalidUri");
-                option.WeatherServiceAPIKey = "NoKey";
+                option.WeatherServiceApiKey = "NoKey";
             });
 
             services.AddSingleton<IWeatherService, WeatherService>();
