@@ -7,12 +7,13 @@ RUN dotnet restore
 
 RUN dotnet test /p:CollectCoverage=true /p:Include="[BikeDashboard*]*" /p:CoverletOutputFormat=opencover
 
-RUN dotnet publish -c Release -o out
+RUN dotnet publish -c Release -o publish
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
 ENV ASPNETCORE_ENVIRONMENT Production
 WORKDIR /app
-COPY --from=build-env /app/BikeDashboard/out/ .
+
+COPY --from=build-env /app/publish/ .
 
 EXPOSE 5000
 ENTRYPOINT ["dotnet", "BikeDashboard.dll"]
