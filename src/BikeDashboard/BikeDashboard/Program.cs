@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
+using Serilog;
+
 
 namespace BikeDashboard
 {
@@ -7,13 +9,35 @@ namespace BikeDashboard
     {
         public static void Main(string[] args)
         {
-            var host = CreateWebHostBuilder(args).Build();
-            host.Run();
+            CreateHostBuilder(args).UseLightInject()
+                .Build()
+                .Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseUrls("http://*:5000")
-                .UseStartup<Startup>();
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .UseLightInject()
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseUrls("http://::5000");
+                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseSerilog((hostingContext, loggerConfiguration) =>
+                    {
+                        loggerConfiguration
+                            .MinimumLevel.Information()
+                            .ReadFrom.Configuration(hostingContext.Configuration)
+                            .Enrich.FromLogContext();
+
+                        if (hostingContext.HostingEnvironment.IsDevelopment())
+                        {
+                            loggerConfiguration.MinimumLevel.Verbose().WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}");
+                        }
+                        else
+                        {
+                            loggerConfiguration.MinimumLevel.Information().WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}");
+                        }
+
+                    });
+                });
     }
 }

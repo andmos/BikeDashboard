@@ -1,16 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
   <PropertyGroup>
-  <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
-</PropertyGroup>
+    <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
+  </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App">
-      <PrivateAssets Condition="'%(PackageReference.Version)' == ''">all</PrivateAssets>
-      <Publish Condition="'%(PackageReference.Version)' == ''">true</Publish>
-    </PackageReference>
-    <PackageReference Include="BikeshareClient" Version="3.1.0" />
+    <PackageReference Include="LightInject.Microsoft.Hosting" Version="1.2.2" />
+    <PackageReference Include="BikeshareClient" Version="3.2.1" />
+    <PackageReference Include="Scrutor" Version="3.2.2" />
+    <PackageReference Include="Serilog" Version="2.10.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
@@ -24,10 +25,6 @@
     <Folder Include="ViewModels\" />
     <Folder Include="GeoLocation\" />
     <Folder Include="HealthChecks\" />
-    <Folder Include="Extensions\" />
     <Folder Include="Configuration\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Remove="Configuration\BikeshareClientSettings.config" />
   </ItemGroup>
 </Project>
