@@ -16,6 +16,8 @@ docker run -it -p 5000:5000 -e GBFSAddress="http://gbfs.urbansharing.com/trondhe
 
 All compatible GBFS systems can be found [here](https://github.com/NABSA/gbfs/blob/master/systems.csv).
 
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=andmos/BikeDashboard)](https://dependabot.com)
+
 [![Build Status](https://travis-ci.com/andmos/BikeDashboard.svg?branch=master)](https://travis-ci.com/andmos/BikeDashboard)
 
 [![Docker Project](https://img.shields.io/docker/pulls/andmos/bikedashboard.svg)](https://hub.docker.com/r/andmos/bikedashboard/)
