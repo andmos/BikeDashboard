@@ -4,9 +4,15 @@ language: minimal
 services:
   - docker
 script:
-  - docker build -t andmos/bikesharedashboard .
+  - docker build -t andmos/bikesharedashboard:$(git rev-parse --short HEAD) .
 after_success:
   - export id=$(docker images --filter "label=test=true" -q | head -1)
   - docker create --name testcontainer $id
   - docker cp testcontainer:/app/TestBikedashboard/coverage.opencover.xml .
   - bash <(curl -s https://codecov.io/bash)
+deploy:
+    provider: script
+    skip_cleanup: true
+    on:
+        branch: master
+    script: docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"; docker tag andmos/bikesharedashboard:$(git rev-parse --short HEAD) andmos/bikesharedashboard:latest; docker push andmos/bikesharedashboard
