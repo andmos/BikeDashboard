@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using System.Linq;
 using System.Net;
 using BikeDashboard.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace BikeDashboard.Services
@@ -20,10 +21,12 @@ namespace BikeDashboard.Services
 		private readonly string _tempUnit = "metric";
 		private readonly int _numberOfForecastRecords = 4; // 3 hours between forecasts
         private readonly HttpClient _httpClient;
+        private readonly ILogger<WeatherService> _logger;
 
-        public WeatherService(IOptions<WeatherServiceSettings> weatherServiceSettings, IHttpClientFactory httpClientFactory)
+        public WeatherService(IOptions<WeatherServiceSettings> weatherServiceSettings, IHttpClientFactory httpClientFactory, ILogger<WeatherService> logger)
         {
-            _weatherServiceApiKey = weatherServiceSettings.Value.WeatherServiceApiKey;
+	        _logger = logger;
+	        _weatherServiceApiKey = weatherServiceSettings.Value.WeatherServiceApiKey;
             _apiBaseAddress = weatherServiceSettings.Value.ApiBaseAddress;
             _httpClient = httpClientFactory.CreateClient();
             _httpClient.BaseAddress = _apiBaseAddress;
@@ -42,6 +45,7 @@ namespace BikeDashboard.Services
 				                                     $"&cnt={_numberOfForecastRecords}");
             if (!response.IsSuccessStatusCode)
             {
+	            _logger.LogError($"Error when getting weather forcast from {_apiBaseAddress}");
 				throw new NotImplementedException($"Could not find any weather data, {_apiBaseAddress} returned status code {response.StatusCode}");
             }
 			var content = await response.Content.ReadAsStringAsync();

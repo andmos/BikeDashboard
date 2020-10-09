@@ -6,6 +6,7 @@ using BikeDashboard.Configuration;
 using BikeDashboard.Models;
 using BikeshareClient;
 using BikeshareClient.Models;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace BikeDashboard.Services
@@ -14,10 +15,14 @@ namespace BikeDashboard.Services
     {
         private readonly string _defaultStationName;
         private readonly IBikeshareClient _bikeShareClient;
+        private readonly ILogger<StationService> _logger;
 
-        public StationService(IBikeshareClient bikeshareClient, IOptions<StationServiceSettings> stationSettings)
+        public StationService(IBikeshareClient bikeshareClient, 
+            IOptions<StationServiceSettings> stationSettings, 
+            ILogger<StationService> logger)
         {
             _bikeShareClient = bikeshareClient;
+            _logger = logger;
             _defaultStationName = stationSettings.Value.StationName;
         }
         
@@ -47,9 +52,11 @@ namespace BikeDashboard.Services
             {
                 if (!stationName.Equals(_defaultStationName)) 
                 {
+                    _logger.LogInformation($"Couldn't find {stationName} in bikeshare provider, defaulting to {_defaultStationName} {noElementException}");
                     return await GetFavoriteStation(_defaultStationName);
                 }
                 var bikeSystemInfo = await _bikeShareClient.GetSystemInformationAsync();
+                _logger.LogError($"Coudn't find default station {_defaultStationName} in bikeshare provider {noElementException}");
                 throw new ArgumentException($"Can't find {_defaultStationName} station in bikeshare-provider {bikeSystemInfo.Name} ({bikeSystemInfo.OperatorName})");
             }
             var stationsStatuses = await _bikeShareClient.GetStationsStatusAsync();
