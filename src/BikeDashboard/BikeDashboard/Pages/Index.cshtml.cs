@@ -7,6 +7,7 @@ using BikeDashboard.ViewModels;
 using BikeDashboard.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
 
 namespace BikeDashboard.Pages
 {
@@ -14,11 +15,13 @@ namespace BikeDashboard.Pages
 	{
 		private readonly IStationService _stationService;
 		private readonly IWeatherService _weatherService;
+		private readonly ILogger<IndexModel> _logger;
 
-		public IndexModel(IStationService stationService, IWeatherService weatherService)
+		public IndexModel(IStationService stationService, IWeatherService weatherService, ILogger<IndexModel> logger)
 		{
 			_stationService = stationService;
 			_weatherService = weatherService;
+			_logger = logger;
 			WeatherServiceEnabled = _weatherService.FeatureEnabled;
 		}
 
@@ -62,6 +65,7 @@ namespace BikeDashboard.Pages
                 }
                 catch(NotImplementedException exception)
                 {
+	                _logger.LogWarning($"Got error when fetching weather forecast. Disabling weatherservice. {exception}");
                     WeatherServiceEnabled = false;
                 }
 
