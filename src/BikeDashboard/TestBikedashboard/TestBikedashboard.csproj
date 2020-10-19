@@ -5,7 +5,7 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="LightInject.Microsoft.Hosting" Version="1.2.2" />
+    <PackageReference Include="LightInject.Microsoft.Hosting" Version="1.2.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
     <PackageReference Include="Scrutor" Version="3.2.2" />
     <PackageReference Include="xunit" Version="2.4.1" />
@@ -13,7 +13,7 @@
     <PackageReference Include="BikeshareClient" Version="3.2.3" />
     <PackageReference Include="coverlet.msbuild" Version="2.9.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="3.1.9" />
-    <PackageReference Include="HtmlAgilityPack" Version="1.11.24" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.25" />
     <PackageReference Include="Moq" Version="4.14.7" />
   </ItemGroup>
   <ItemGroup>
