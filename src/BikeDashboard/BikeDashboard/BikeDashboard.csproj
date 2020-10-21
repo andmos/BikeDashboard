@@ -7,7 +7,7 @@
     <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="LightInject.Microsoft.Hosting" Version="1.2.3" />
+    <PackageReference Include="LightInject.Microsoft.Hosting" Version="1.2.4" />
     <PackageReference Include="BikeshareClient" Version="3.2.3" />
     <PackageReference Include="Scrutor" Version="3.2.2" />
     <PackageReference Include="Serilog" Version="2.10.0" />
