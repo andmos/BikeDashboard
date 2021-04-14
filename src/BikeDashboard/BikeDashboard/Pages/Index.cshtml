@@ -3,43 +3,38 @@
 @{
     ViewData["Title"] = "Station Status";
     <body>
-        <div class="station-name">
+        <center>
             <h1>
                 @Model.FavoriteStation.Name
-            </h1>
-        </div>
-        <div class="station-status">
-            <p>
-                <img src="~/images/bicycle-solid.svg" style="width:100px;height:200px;" /> @Model.FavoriteStation.AvailableBikes / <img src="~/images/unlock-alt-solid.svg" style="width:50px;height:100px;" /> @Model.FavoriteStation.AvailableLocks
-            </p>
-        </div>
-        <div class="station-infotext">
-            <p> @Model.InfoText</p>
-        </div>
-        @if (Model.WeatherServiceEnabled)
-        {
-            @foreach (var forecast in Model.WeatherForecastViewModels)
-            {
                 <br />
-                <div title="@forecast.Description">
-                    <ul id="horizontal-list" class="list-unstyled">
-                        <li style="height: inherit;line-height:normal">
-                            <img src="~/images/clock.svg" style="width: 20px; height: 20px; margin:0px 4px" /> @forecast.ForecastStartTime - @forecast.ForecastEndTime
-                            <img src="~/images/thermometer-half.svg" style="width: 20px; height: 20px; margin:0px 4px" /> @forecast.Temperature.Min &deg;C / @forecast.Temperature.Max &deg;C
-                            @if (forecast.Rain.PrecipitationType == Models.PrecipitationType.Snow)
-                            {
-                                <img src="~/images/snowflake-solid.svg" style="width: 20px; height: 20px; margin:0px 4px" />
-                            }
-                            else
-                            {
-                                <img src="~/images/tint.svg" style="width: 20px; height: 20px; margin:0px 4px" />
-                            }
-                            @forecast.Rain.Value mm
-                            <img src="~/images/strong-wind.svg" style="width: 40px; height: 40px; margin:0px 4px" /> @forecast.Wind.Speed &#13223;
-                        </li>
-                    </ul>
-                </div>
+                <img src="~/images/bicycle-solid.svg" style="width:100px;height:200px;" /> @Model.FavoriteStation.AvailableBikes / <img src="~/images/unlock-alt-solid.svg" style="width:50px;height:100px;" /> @Model.FavoriteStation.AvailableLocks
+            </h1>
+                        @Model.InfoText
+            <br />
+
+
+
+            @if (Model.WeatherServiceEnabled)
+            {
+                @foreach (var forecast in Model.WeatherForecastViewModels)
+                {
+                    <br />
+                    <div title="@forecast.Description">
+                        <img src="~/images/clock.svg" style="width: 20px; height: 20px; margin:0px 4px" /> @forecast.ForecastStartTime - @forecast.ForecastEndTime
+                        <img src="~/images/thermometer-half.svg" style="width: 20px; height: 20px; margin:0px 4px"  /> @forecast.Temperature.Min &deg;C / @forecast.Temperature.Max &deg;C
+                        @if (forecast.Rain.PrecipitationType == Models.PrecipitationType.Snow)
+                        {
+                            <img src="~/images/snowflake-solid.svg" style="width: 20px; height: 20px; margin:0px 4px" /> 
+                        }
+                        else
+                        {
+                            <img src="~/images/tint.svg" style="width: 20px; height: 20px; margin:0px 4px" /> 
+                        }
+                         @forecast.Rain.Value mm
+                        <img src="~/images/strong-wind.svg" style="width: 40px; height: 40px; margin:0px 4px" /> @forecast.Wind.Speed &#13223;
+                    </div>
+                 }
             }
-        }
-    </body>
+        </center>            
+      </body>
 }

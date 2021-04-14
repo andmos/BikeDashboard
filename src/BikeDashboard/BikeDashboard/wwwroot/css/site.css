@@ -4,11 +4,10 @@ body {
 }
 
 /* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
-    max-width: 500px;
-    margin: auto;
 }
 
 /* Carousel */
@@ -33,20 +32,4 @@ body {
     .carousel-caption {
         display: none;
     }
-}
-
-.station-name {
-    margin: auto;
-    width: 50%;
-}
-
-.station-status {
-    font-size: xx-large;
-    font-weight: 500;
-    margin: auto;
-    width: 50%;
-}
-
-.station-infotext {
-    font-size: medium;
 }
