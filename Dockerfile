@@ -9,7 +9,7 @@ RUN dotnet test /p:CollectCoverage=true /p:Include="[BikeDashboard*]*" /p:Coverl
 
 RUN dotnet publish -c Release -o publish
 
-FROM mcr.microsoft.com/dotnet/aspnet:5.0.0-alpine3.12
+FROM mcr.microsoft.com/dotnet/aspnet:5.0.5-alpine3.12
 ENV ASPNETCORE_ENVIRONMENT Production
 WORKDIR /app
 
