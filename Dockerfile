@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:5.0.401-alpine3.13 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:5.0.402-alpine3.13 AS build-env
 WORKDIR /app
 LABEL test=true
 
