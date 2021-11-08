@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:5.0.402-alpine3.13 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine3.14 AS build-env
 WORKDIR /app
 LABEL test=true
 
@@ -12,7 +12,7 @@ RUN dotnet test /p:CollectCoverage=true /p:Include="[BikeDashboard*]*" /p:Coverl
 
 RUN dotnet publish -c Release -o publish
 
-FROM mcr.microsoft.com/dotnet/aspnet:5.0.11-alpine3.13
+FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine3.14
 ENV ASPNETCORE_ENVIRONMENT Production
 WORKDIR /app
 
