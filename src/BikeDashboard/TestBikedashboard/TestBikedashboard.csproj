@@ -15,7 +15,7 @@
 <PrivateAssets>all</PrivateAssets>
 </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.1" />
-    <PackageReference Include="HtmlAgilityPack" Version="1.11.41" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.42" />
     <PackageReference Include="Moq" Version="4.16.1" />
   </ItemGroup>
   <ItemGroup>
