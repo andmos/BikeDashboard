@@ -45,5 +45,10 @@ namespace TestBikedashboard.Stubs
         {
             return await Task.FromResult(new SystemInformation("1", "Test Bike Provider", "Nb", "Test Bike Provider inc.", "GMT", "44444", "SomeMail"));
         }
+
+        public Task<IEnumerable<VehicleTypes>> GetVehicleTypesAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

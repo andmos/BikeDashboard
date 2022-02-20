@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using BikeDashboard.Models;
 using Microsoft.Extensions.Options;
 using BikeDashboard.Configuration;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
 namespace TestBikedashboard.Services
