@@ -16,7 +16,7 @@
 </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.2" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.42" />
-    <PackageReference Include="Moq" Version="4.17.1" />
+    <PackageReference Include="Moq" Version="4.17.2" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
