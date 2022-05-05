@@ -4,6 +4,7 @@ using BikeDashboard.Configuration;
 using BikeDashboard.HealthChecks;
 using BikeDashboard.Services;
 using BikeshareClient;
+using BikeshareClient.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -20,18 +21,7 @@ namespace BikeDashboard
             services.Configure<WeatherServiceSettings>(configuration);
 
             var gbfsAddress = configuration.Get<GbfsConfigurationSettings>().GBFSAddress;
-
-            services.AddHttpClient("GBFSClient", httpClient =>
-            {
-                httpClient.BaseAddress = new Uri(gbfsAddress);
-            });
-            
-            services.AddTransient<IBikeshareClient>(provider =>
-            {
-                var clientFactory = provider.GetRequiredService<IHttpClientFactory>();
-                var httpClient = clientFactory.CreateClient("GBFSClient");
-                return new Client("", httpClient);
-            });
+            services.AddBikeshareClient(gbfsAddress);
             
             services.AddTransient<IWeatherService, WeatherService>();
             services.Decorate<IWeatherService, TimeCachedWeatherService>();
