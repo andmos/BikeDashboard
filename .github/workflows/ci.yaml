@@ -12,7 +12,7 @@ jobs:
 
       - name: Build and test container
         run: |
-          docker build -t andmos/bikedashboard:$(git rev-parse --short HEAD)
+          docker build -t andmos/bikedashboard:$(git rev-parse --short HEAD) .
 
       - name: Upload codecov report
         run: |
