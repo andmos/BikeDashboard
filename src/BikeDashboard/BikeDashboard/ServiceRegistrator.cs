@@ -1,9 +1,6 @@
-using System;
-using System.Net.Http;
 using BikeDashboard.Configuration;
 using BikeDashboard.HealthChecks;
 using BikeDashboard.Services;
-using BikeshareClient;
 using BikeshareClient.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
