@@ -7,20 +7,20 @@ using System.Collections.Generic;
 
 namespace BikeDashboard.Controllers
 {
-	[Route("api/[controller]")]
+    [Route("api/[controller]")]
     public class StationsController
     {
-		private readonly IStationService _stationService;
+        private readonly IStationService _stationService;
 
-		public StationsController(IStationService stationService)
+        public StationsController(IStationService stationService)
         {
-			_stationService = stationService;
-		}
+            _stationService = stationService;
+        }
 
-		[HttpGet]
-		public async Task<IEnumerable<Station>> GetAsync()
-		{
-			return await _stationService.GetAllAvailableStations();
-		}
+        [HttpGet]
+        public async Task<IEnumerable<Station>> GetAsync()
+        {
+            return await _stationService.GetAllAvailableStations();
+        }
     }
 }

@@ -20,19 +20,18 @@ namespace BikeDashboard
         {
             Configuration = configuration;
         }
-        
+
         public IConfiguration Configuration { get; }
-        
+
         public virtual void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc(options => options.EnableEndpointRouting = false);
             services.AddRouting(options => options.LowercaseUrls = true);
-            
+
             ServiceRegistrator.RegisterServices(services, Configuration);
             ServiceRegistrator.RegisterHealthChecks(services, Configuration);
         }
 
-        
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -43,13 +42,13 @@ namespace BikeDashboard
             {
                 app.UseExceptionHandler("/Error");
             }
-            
+
             app.UseStaticFiles();
 
             var healthCheckOptions = CreateHealthCheckOptions();
             app.UseHealthChecks("/api/health", healthCheckOptions);
             app.UseRouting();
-            
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

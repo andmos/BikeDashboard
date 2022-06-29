@@ -17,7 +17,10 @@ namespace BikeDashboard.Pages
 		private readonly IWeatherService _weatherService;
 		private readonly ILogger<IndexModel> _logger;
 
-		public IndexModel(IStationService stationService, IWeatherService weatherService, ILogger<IndexModel> logger)
+		public IndexModel(
+			IStationService stationService,
+			IWeatherService weatherService, 
+			ILogger<IndexModel> logger)
 		{
 			_stationService = stationService;
 			_weatherService = weatherService;
