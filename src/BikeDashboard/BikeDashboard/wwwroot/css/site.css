@@ -4,26 +4,12 @@ body {
 }
 
 /* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
-}
-
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
-}
-
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
-}
-
-/* QR code generator */
-#qrCode {
-    margin: 15px;
+    max-width:fit-content;
+    margin: 0 auto;
+    width: auto;
 }
 
 /* Hide/rearrange for smaller screens */
@@ -32,4 +18,28 @@ body {
     .carousel-caption {
         display: none;
     }
+}
+
+.station-name {
+    margin: 0 auto;
+    width: fit-content;
+}
+
+.station-status {
+    font-size: xx-large;
+    font-weight: 500;
+    margin: 0 auto;
+    width: fit-content;
+    
+}
+
+.station-infotext {
+    font-size: medium;
+    margin: 0 auto;
+    width: fit-content;
+}
+
+.weather-forecast-time {
+    display: inline-block;
+    width: 130px;
 }
