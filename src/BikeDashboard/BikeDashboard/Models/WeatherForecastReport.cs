@@ -5,11 +5,11 @@ namespace BikeDashboard.Models
 {
     public class WeatherForecastReport
     {
-		public IEnumerable<WeatherForecast> Forecasts { get; }
+        public IEnumerable<WeatherForecast> Forecasts { get; }
 
-		public WeatherForecastReport(IEnumerable<WeatherForecast> forecasts)
+        public WeatherForecastReport(IEnumerable<WeatherForecast> forecasts)
         {
-			Forecasts = forecasts;
-		}
+            Forecasts = forecasts;
+        }
     }
 }

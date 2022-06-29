@@ -5,7 +5,7 @@ using Newtonsoft.Json.Converters;
 
 namespace BikeDashboard.DTO
 {
-	public class Main
+    public class Main
     {
         public double temp { get; set; }
         public double temp_min { get; set; }
@@ -38,8 +38,8 @@ namespace BikeDashboard.DTO
 
     public class Rain
     {
-		[JsonProperty("3h")]
-		public double? Rainfall { get; set; }
+        [JsonProperty("3h")]
+        public double? Rainfall { get; set; }
     }
 
     public class Snow
@@ -55,10 +55,10 @@ namespace BikeDashboard.DTO
 
     public class Forecast
     {
-		[JsonConverter(typeof(UnixDateTimeConverter)), JsonProperty("dt")]
-		public DateTime RecordTime { get; set; }
-        
-		public Main main { get; set; }
+        [JsonConverter(typeof(UnixDateTimeConverter)), JsonProperty("dt")]
+        public DateTime RecordTime { get; set; }
+
+        public Main main { get; set; }
         public List<Weather> weather { get; set; }
         public Clouds clouds { get; set; }
         public Wind wind { get; set; }
@@ -67,14 +67,14 @@ namespace BikeDashboard.DTO
         public Sys sys { get; set; }
         public string dt_txt { get; set; }
     }
- 
+
     public class WeatherReportDTO
     {
         public string cod { get; set; }
         public double message { get; set; }
-		[JsonProperty("cnt")]
-		public int NumberOfForecasts { get; set; }
+        [JsonProperty("cnt")]
+        public int NumberOfForecasts { get; set; }
         public List<Forecast> list { get; set; }
-       
+
     }
 }

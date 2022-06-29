@@ -17,7 +17,8 @@ namespace BikeDashboard.Services
         private readonly IBikeshareClient _bikeShareClient;
         private readonly ILogger<StationService> _logger;
 
-        public StationService(IBikeshareClient bikeshareClient, 
+        public StationService(
+            IBikeshareClient bikeshareClient, 
             IOptions<StationServiceSettings> stationSettings, 
             ILogger<StationService> logger)
         {

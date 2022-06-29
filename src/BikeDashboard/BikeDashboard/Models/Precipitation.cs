@@ -5,11 +5,11 @@ namespace BikeDashboard.Models
     {
         public double Value { get; set; }
         public PrecipitationType PrecipitationType { get; set; }
-		public Precipitation(double rainfallValue, PrecipitationType precipitationType)
+        public Precipitation(double rainfallValue, PrecipitationType precipitationType)
         {
-			Value = rainfallValue;
+            Value = rainfallValue;
             PrecipitationType = precipitationType;
-		}
+        }
     }
 
     public enum PrecipitationType

@@ -1,0 +1,38 @@
+name: CI / CD 
+on: 
+  push:
+  workflow_dispatch:
+jobs: 
+  Build-and-publish:
+    name: Build, Test Publish
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Build and test container
+        run: |
+          docker build -t andmos/bikedashboard:$(git rev-parse --short HEAD) .
+
+      - name: Upload codecov report
+        run: |
+          export id=$(docker images --filter "label=test=true" -q | head -1)
+          docker create --name testcontainer $id
+          docker cp testcontainer:/app/TestBikedashboard/coverage.opencover.xml .
+          bash <(curl -s https://codecov.io/bash)
+
+      - name: Log in to the Container registry
+        if: ${{ github.ref == 'refs/heads/master' }}
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish image
+        if: ${{ github.ref == 'refs/heads/master' }}
+        run: |
+          docker tag andmos/bikedashboard:$(git rev-parse --short HEAD) ghcr.io/andmos/bikedashboard:latest; 
+          docker tag ghcr.io/andmos/bikedashboard:latest ghcr.io/andmos/bikedashboard:$(git rev-parse --short HEAD); 
+          docker push ghcr.io/andmos/bikedashboard:$(git rev-parse --short HEAD); 
+          docker push ghcr.io/andmos/bikedashboard:latest; 
