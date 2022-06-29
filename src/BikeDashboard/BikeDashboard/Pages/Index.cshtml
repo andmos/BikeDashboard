@@ -2,20 +2,24 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Station Status";
+
     <body>
         <div class="station-name">
             <h1>
                 @Model.FavoriteStation.Name
             </h1>
         </div>
+
         <div class="station-status">
             <p>
                 <img src="~/images/bicycle-solid.svg" style="width:100px;height:200px;" /> @Model.FavoriteStation.AvailableBikes / <img src="~/images/unlock-alt-solid.svg" style="width:50px;height:100px;" /> @Model.FavoriteStation.AvailableLocks
             </p>
-            <div class="station-infotext">
-                <p> @Model.InfoText</p>
-            </div>
         </div>
+
+        <div class="station-infotext">
+            <p> @Model.InfoText</p>
+        </div>
+
         @if (Model.WeatherServiceEnabled)
         {
             @foreach (var forecast in Model.WeatherForecastViewModels)
@@ -24,7 +28,7 @@
                 <div title="@forecast.Description">
                     <ul id="horizontal-list" class="list-unstyled">
                         <li style="height: inherit;line-height:normal">
-                            <img src="~/images/clock.svg" style="width: 20px; height: 20px; margin:0px 4px" /> @forecast.ForecastStartTime - @forecast.ForecastEndTime
+                            <img src="~/images/clock.svg" style="width: 20px; height: 20px; margin:0px 4px" /> <span class="weather-forecast-time">@forecast.ForecastStartTime - @forecast.ForecastEndTime </span>
                             <img src="~/images/thermometer-half.svg" style="width: 20px; height: 20px; margin:0px 4px" /> @forecast.Temperature.Min &deg;C / @forecast.Temperature.Max &deg;C
                             @if (forecast.Rain.PrecipitationType == Models.PrecipitationType.Snow)
                             {
