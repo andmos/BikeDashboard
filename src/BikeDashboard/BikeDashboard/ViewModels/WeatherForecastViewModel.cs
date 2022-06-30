@@ -14,7 +14,7 @@ namespace BikeDashboard.ViewModels
 
         private const int _decimalAccuracy = 1;
 
-        public WeatherForecastViewModel(WeatherForecast forecast, DateTime nextForcastDate)
+        public WeatherForecastViewModel(WeatherForecast forecast, DateTime nextForecastDate)
         {
             Rain = new Precipitation(Math.Round(forecast.Precipitation.Value, _decimalAccuracy), forecast.Precipitation.PrecipitationType);
             Temperature = new Temperature(
@@ -25,7 +25,7 @@ namespace BikeDashboard.ViewModels
             Wind = new Wind(Math.Round(forecast.Wind.Speed, _decimalAccuracy));
             Description = forecast.Description;
             ForecastStartTime = forecast.ForecastTime.ToLocalTime().ToShortTimeString();
-            ForecastEndTime = nextForcastDate.ToLocalTime().ToShortTimeString();
+            ForecastEndTime = nextForecastDate.ToLocalTime().ToShortTimeString();
 
         }
     }
