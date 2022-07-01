@@ -1,59 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using BikeDashboard.DTO;
 using BikeDashboard.Models;
-using Newtonsoft.Json;
 using System.Linq;
 using BikeDashboard.Configuration;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace BikeDashboard.Services
 {
     public class WeatherService : IWeatherService
     {
-        private readonly Uri _apiBaseAddress;
         private readonly string _weatherServiceApiKey;
-        private readonly string _tempUnit = "metric";
-        private readonly int _numberOfForecastRecords = 4; // 3 hours between forecasts
-        private readonly HttpClient _httpClient;
-        private readonly ILogger<WeatherService> _logger;
+        private readonly OpenWeatherMapClient _weatherMapClient;
 
         public WeatherService(
             IOptions<WeatherServiceSettings> weatherServiceSettings, 
-            IHttpClientFactory httpClientFactory,
-            ILogger<WeatherService> logger)
+            OpenWeatherMapClient weatherMapClient)
         {
-            _logger = logger;
+            _weatherMapClient = weatherMapClient;
             _weatherServiceApiKey = weatherServiceSettings.Value.WeatherServiceApiKey;
-            _apiBaseAddress = weatherServiceSettings.Value.ApiBaseAddress;
-            _httpClient = httpClientFactory.CreateClient();
-            _httpClient.BaseAddress = _apiBaseAddress;
         }
 
         public bool FeatureEnabled => !string.IsNullOrWhiteSpace(_weatherServiceApiKey);
 
         public async Task<WeatherForecastReport> GetDailyForeCastAsync(StationCoordinates coordinates)
         {
-            var response = await _httpClient.GetAsync($"?lat={coordinates.Latitude}" +
-                                                     $"&lon={coordinates.Longitude}" +
-                                                     $"&APPID={_weatherServiceApiKey}" +
-                                                     $"&units={_tempUnit}" +
-                                                     $"&cnt={_numberOfForecastRecords}");
-            if (!response.IsSuccessStatusCode)
-            {
-                _logger.LogError($"Error when getting weather forecast from {_apiBaseAddress}");
-                throw new NotImplementedException($"Could not find any weather data, {_apiBaseAddress} returned status code {response.StatusCode}");
-            }
-            var content = await response.Content.ReadAsStringAsync();
-
-            return CreateWeatherForecastReport(JsonConvert.DeserializeObject<WeatherReportDTO>(content));
-
+            return CreateWeatherForecastReport(await _weatherMapClient.GetDailyForeCastAsync(coordinates));
         }
-
-
+        
         private WeatherForecastReport CreateWeatherForecastReport(WeatherReportDTO weatherReportDto)
         {
             var forecasts = new List<WeatherForecast>();

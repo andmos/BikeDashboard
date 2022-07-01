@@ -19,7 +19,8 @@ namespace BikeDashboard
 
             var gbfsAddress = configuration.Get<GbfsConfigurationSettings>().GBFSAddress;
             services.AddBikeshareClient(gbfsAddress);
-
+            
+            services.AddHttpClient<OpenWeatherMapClient>();
             services.AddTransient<IWeatherService, WeatherService>();
             services.Decorate<IWeatherService, TimeCachedWeatherService>();
 
