@@ -21,7 +21,7 @@ namespace BikeDashboard.Services
 
         public async Task<WeatherForecastReport> GetDailyForeCastAsync(StationCoordinates coordinates)
         {
-            var forcastReport = await _memoryCache.GetOrCreateAsync((coordinates.Latitude, coordinates.Longitude).GetHashCode(), async report => 
+            var forcastReport = await _memoryCache.GetOrCreateAsync((coordinates.Latitude, coordinates.Longitude), async report => 
             {
                 report.SetAbsoluteExpiration(TimeSpan.FromMinutes(CachedMinutes));
                 return await _weatherService.GetDailyForeCastAsync(coordinates);

@@ -28,8 +28,7 @@ namespace TestBikedashboard.Pages
             var htmlElement = doc.DocumentNode.Descendants("h1");
 
             response.EnsureSuccessStatusCode();
-            Assert.Equal("text/html; charset=utf-8",
-                response.Content.Headers.ContentType.ToString());
+            Assert.Equal("text/html; charset=utf-8", response.Content.Headers.ContentType.ToString());
             Assert.Collection(htmlElement, s => s.InnerText.Contains(DefaultStation));
         }
 
@@ -44,8 +43,7 @@ namespace TestBikedashboard.Pages
             var htmlElement = doc.DocumentNode.Descendants("h1");
 
             response.EnsureSuccessStatusCode();
-            Assert.Equal("text/html; charset=utf-8",
-                response.Content.Headers.ContentType.ToString());
+            Assert.Equal("text/html; charset=utf-8", response.Content.Headers.ContentType.ToString());
             Assert.Collection(htmlElement, s => s.InnerText.Contains("Skansen"));
         }
 
@@ -60,10 +58,8 @@ namespace TestBikedashboard.Pages
             var htmlElement = doc.DocumentNode.Descendants("h1");
 
             response.EnsureSuccessStatusCode();
-            Assert.Equal("text/html; charset=utf-8",
-                response.Content.Headers.ContentType.ToString());
+            Assert.Equal("text/html; charset=utf-8", response.Content.Headers.ContentType.ToString());
             Assert.Collection(htmlElement, s => s.InnerText.Contains(DefaultStation));
         }
-
     }
 }

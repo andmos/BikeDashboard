@@ -44,7 +44,7 @@ namespace BikeDashboard.Services
                                                      $"&cnt={_numberOfForecastRecords}");
             if (!response.IsSuccessStatusCode)
             {
-                _logger.LogError($"Error when getting weather forcast from {_apiBaseAddress}");
+                _logger.LogError($"Error when getting weather forecast from {_apiBaseAddress}");
                 throw new NotImplementedException($"Could not find any weather data, {_apiBaseAddress} returned status code {response.StatusCode}");
             }
             var content = await response.Content.ReadAsStringAsync();

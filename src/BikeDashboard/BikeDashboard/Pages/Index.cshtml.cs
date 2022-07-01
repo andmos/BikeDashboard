@@ -58,7 +58,7 @@ namespace BikeDashboard.Pages
                 FavoriteStation = await _stationService.GetClosestAvailableStation(FavoriteStation);
             }
 
-			if(WeatherServiceEnabled)
+			if (WeatherServiceEnabled)
 			{
 				WeatherForecastReport weatherForecastReport;
                 try
@@ -71,7 +71,6 @@ namespace BikeDashboard.Pages
 	                _logger.LogWarning($"Got error when fetching weather forecast. Disabling weatherservice. {exception}");
                     WeatherServiceEnabled = false;
                 }
-
 			}
         }
 

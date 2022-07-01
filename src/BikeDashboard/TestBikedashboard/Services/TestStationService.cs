@@ -65,15 +65,14 @@ namespace TestBikedashboard.Services
         public async Task GetFavoriteStation_GivenInvalidStationNameParameter_ReturnsDefaultFavoriteStation() 
         {
             var cut = new StationService(_bikeshareClientStub, _stationOptions, _logger);
-            var expectedStation = _defaultFavoriteStation;
 
             var station = await cut.GetFavoriteStation("InvalidStation");
 
-            Assert.Equal(expectedStation, station.Name);
+            Assert.Equal(_defaultFavoriteStation, station.Name);
         }
 
         [Fact]
-        public async Task GetAvailableStations_ReturnsAllAvialableStation()
+        public async Task GetAvailableStations_ReturnsAllAvailableStation()
         {
             var cut = new StationService(_bikeshareClientStub, _stationOptions, _logger);
 
@@ -97,6 +96,16 @@ namespace TestBikedashboard.Services
         [Fact]
         public async Task GetClosestAvailableStaiton_GivenSystemWithSingleEmptyStation_ReturnsNoAvailableStation() 
         {
+            var bikeProviderWithSingleAndEmptyStation = SetUpBikeshareClientMockWithSingleAndEmptyStation();
+            var cut = new StationService(bikeProviderWithSingleAndEmptyStation, _stationOptions, _logger);
+
+            var emptyStation = await cut.GetClosestAvailableStation(await cut.GetFavoriteStation());
+
+            Assert.Equal("No Available Bikes found from bikeshare provider.", emptyStation.Name);
+        }
+
+        private IBikeshareClient SetUpBikeshareClientMockWithSingleAndEmptyStation()
+        {
             var emptyStationIdentity = new StationIdentity("mockStation", "mockStation");
             _stationOptions.Value.StationName = emptyStationIdentity.Name;
             var singleEmptyStationStatus = new List<StationStatus> { new StationStatus(emptyStationIdentity.Name, 0, 0, 1, true, true, true, 0, DateTime.Now) };
@@ -104,12 +113,8 @@ namespace TestBikedashboard.Services
             var singleStationSystemMock = new Mock<IBikeshareClient>();
             singleStationSystemMock.Setup(s => s.GetStationsStatusAsync()).Returns(Task.FromResult<IEnumerable<StationStatus>>(singleEmptyStationStatus));
             singleStationSystemMock.Setup(s => s.GetStationsAsync()).Returns(Task.FromResult<IEnumerable<Station>>(singleEmptyStation));
-            var cut = new StationService(singleStationSystemMock.Object, _stationOptions, _logger);
 
-            var emptyStation = await cut.GetClosestAvailableStation(await cut.GetFavoriteStation());
-
-            Assert.Equal("No Available Bikes found from bikeshare provider.", emptyStation.Name);
-
+            return singleStationSystemMock.Object;
         }
     }
 }
