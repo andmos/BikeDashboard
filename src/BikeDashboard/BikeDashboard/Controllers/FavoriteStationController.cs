@@ -33,7 +33,6 @@ namespace BikeDashboard.Controllers
                 station = await _stationService.GetFavoriteStation(stationName);
             }
 
-
             if (_weatherService.FeatureEnabled)
             {
                 weatherForecast = await _weatherService.GetDailyForeCastAsync(station.StationCoordinates);
