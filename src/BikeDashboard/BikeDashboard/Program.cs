@@ -21,8 +21,9 @@ namespace BikeDashboard
                 {
                     webBuilder.UseUrls("http://::5000");
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseSerilog((hostingContext, loggerConfiguration) =>
-                    {
+                })
+                .UseSerilog((hostingContext, loggerConfiguration) =>
+                {
                         loggerConfiguration
                             .MinimumLevel.Information()
                             .ReadFrom.Configuration(hostingContext.Configuration)
@@ -37,7 +38,6 @@ namespace BikeDashboard
                             loggerConfiguration.MinimumLevel.Information().WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}");
                         }
 
-                    });
                 });
     }
 }
