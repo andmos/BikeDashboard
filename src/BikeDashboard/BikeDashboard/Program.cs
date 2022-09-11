@@ -29,15 +29,9 @@ namespace BikeDashboard
                             .ReadFrom.Configuration(hostingContext.Configuration)
                             .Enrich.FromLogContext();
 
-                        if (hostingContext.HostingEnvironment.IsDevelopment())
-                        {
-                            loggerConfiguration.MinimumLevel.Verbose().WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}");
-                        }
-                        else
-                        {
-                            loggerConfiguration.MinimumLevel.Information().WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}");
-                        }
-
+                        var logConfiguration = hostingContext.HostingEnvironment.IsDevelopment() ? 
+                        loggerConfiguration.MinimumLevel.Verbose().WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}") : 
+                        loggerConfiguration.MinimumLevel.Information().WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}");
                 });
     }
 }
