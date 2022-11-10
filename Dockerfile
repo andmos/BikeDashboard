@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine3.14 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:7.0.100-alpine3.16 AS build-env
 WORKDIR /app
 LABEL test=true
 
@@ -8,11 +8,15 @@ COPY src/BikeDashboard/BikeDashboard.sln BikeDashboard.sln
 
 RUN dotnet restore
 
-RUN dotnet test /p:CollectCoverage=true /p:Include="[BikeDashboard*]*" /p:CoverletOutputFormat=opencover
+ENV CollectCoverage=true
+ENV Include="[BikeDashboard*]*"
+ENV CoverletOutputFormat=opencover
+
+RUN dotnet test
 
 RUN dotnet publish -c Release -o publish
 
-FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine3.14
+FROM mcr.microsoft.com/dotnet/aspnet:7.0.0-alpine3.16
 ENV ASPNETCORE_ENVIRONMENT Production
 WORKDIR /app
 
