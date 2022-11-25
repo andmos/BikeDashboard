@@ -7,7 +7,7 @@
     <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="BikeshareClient.DependencyInjection" Version="3.3.6" />
+    <PackageReference Include="BikeshareClient.DependencyInjection" Version="3.3.7" />
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
     <PackageReference Include="LightInject.Microsoft.Hosting" Version="1.5.0" />
     <PackageReference Include="Scrutor" Version="4.2.0" />
