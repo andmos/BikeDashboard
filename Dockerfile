@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:7.0.101-alpine3.16 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:7.0.102-alpine3.16 AS build-env
 WORKDIR /app
 LABEL test=true
 
