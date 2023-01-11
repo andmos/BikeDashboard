@@ -25,7 +25,7 @@
             @foreach (var forecast in Model.WeatherForecastViewModels)
             {
                 <br />
-                <div title="@forecast.Description">
+                <div title="@forecast.Description" class="weather-forcaste-table">
                     <ul id="horizontal-list" class="list-unstyled">
                         <li style="height: inherit;line-height:normal">
                             <img src="~/images/clock.svg" style="width: 20px; height: 20px; margin:0px 4px" /> <span class="weather-forecast-time">@forecast.ForecastStartTime - @forecast.ForecastEndTime </span>
