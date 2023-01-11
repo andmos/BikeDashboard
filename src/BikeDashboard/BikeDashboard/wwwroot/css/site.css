@@ -39,6 +39,11 @@ body {
     width: fit-content;
 }
 
+.weather-forcaste-table {
+    margin: 0 auto;
+    width: fit-content;
+}
+
 .weather-forecast-time {
     display: inline-block;
 }
