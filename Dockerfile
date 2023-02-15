@@ -16,7 +16,7 @@ RUN dotnet test
 
 RUN dotnet publish -c Release -o publish
 
-FROM mcr.microsoft.com/dotnet/aspnet:7.0.2-alpine3.16
+FROM mcr.microsoft.com/dotnet/aspnet:7.0.3-alpine3.16
 ENV ASPNETCORE_ENVIRONMENT Production
 WORKDIR /app
 
