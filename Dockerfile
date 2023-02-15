@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:7.0.102-alpine3.16 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:7.0.103-alpine3.16 AS build-env
 WORKDIR /app
 LABEL test=true
 
@@ -16,7 +16,7 @@ RUN dotnet test
 
 RUN dotnet publish -c Release -o publish
 
-FROM mcr.microsoft.com/dotnet/aspnet:7.0.2-alpine3.16
+FROM mcr.microsoft.com/dotnet/aspnet:7.0.3-alpine3.16
 ENV ASPNETCORE_ENVIRONMENT Production
 WORKDIR /app
 
