@@ -10,7 +10,7 @@
     <PackageReference Include="Scrutor" Version="4.2.1" />
     <PackageReference Include="xunit" Version="2.4.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5" />
-    <PackageReference Include="BikeshareClient" Version="3.3.3" />
+    <PackageReference Include="BikeshareClient" Version="3.3.4" />
     <PackageReference Include="coverlet.msbuild" Version="3.2.0"><IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 <PrivateAssets>all</PrivateAssets>
 </PackageReference>
