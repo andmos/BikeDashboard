@@ -5,7 +5,7 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="LightInject.Microsoft.Hosting" Version="1.5.3" />
+    <PackageReference Include="LightInject.Microsoft.Hosting" Version="1.6.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
     <PackageReference Include="Scrutor" Version="4.2.2" />
     <PackageReference Include="xunit" Version="2.4.2" />
