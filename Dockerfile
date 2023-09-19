@@ -1,6 +1,5 @@
 FROM mcr.microsoft.com/dotnet/sdk:7.0.202-alpine3.16 AS build-env
 WORKDIR /app
-LABEL test=true
 
 COPY src/BikeDashboard/BikeDashboard BikeDashboard
 COPY src/BikeDashboard/TestBikedashboard  TestBikedashboard
@@ -20,6 +19,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:7.0.4-alpine3.16
 ENV ASPNETCORE_ENVIRONMENT Production
 WORKDIR /app
 
+COPY --from=build-env /app/TestBikedashboard/coverage.opencover.xml /tmp/coverage.opencover.xml
 COPY --from=build-env /app/publish/ .
 
 EXPOSE 5000
