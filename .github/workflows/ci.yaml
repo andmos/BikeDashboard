@@ -16,9 +16,8 @@ jobs:
 
       - name: Upload codecov report
         run: |
-          export id=$(docker images --filter "label=test=true" -q | head -1)
-          docker create --name testcontainer $id
-          docker cp testcontainer:/app/TestBikedashboard/coverage.opencover.xml .
+          docker create --name testfilecontainer andmos/bikedashboard:$(git rev-parse --short HEAD)
+          docker cp testfilecontainer:/tmp/coverage.opencover.xml .
           bash <(curl -s https://codecov.io/bash)
 
       - name: Log in to the Container registry
